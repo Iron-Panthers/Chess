@@ -1,7 +1,7 @@
 package board;
 import java.util.Scanner;
 
-import exiled.Piece;
+import pieces.Piece;
 import pieces.PieceType;
 
 public class Player {
@@ -29,10 +29,10 @@ public class Player {
 			String pInput = input.nextLine();
 			switch(pInput) {
 				case "N":
-					int x = getX();
-					int y = getY();
-					int moveX = moveX();
-					int moveY = moveY();
+//					int x = getX();
+//					int y = getY();
+//					int moveX = moveX();
+//					int moveY = moveY();
 					//Moves a knight with those things
 					//Main.board[][]knight();
 					isChoosing = false;

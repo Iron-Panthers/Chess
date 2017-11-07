@@ -1,8 +1,14 @@
 package board;
 import java.util.ArrayList;
 
-import exiled.Piece;
-import pieces.PieceType;
+import pieces.Bishop;
+import pieces.Blank;
+import pieces.King;
+import pieces.Knight;
+import pieces.Pawn;
+import pieces.Piece;
+import pieces.Queen;
+import pieces.Rook;
 
 public class Main {
 	//Players
@@ -24,18 +30,24 @@ public class Main {
 		//Adds Clear pieces
 		for (int i = 0; i<8; i++) { //2 equals no color
 			for (int j = 0; j<8; j++) {
-				Piece blank = new Piece(PieceType.X,2);
+				Piece blank = new Blank(2);
 				board[j][i] = blank;
 			}
+		}
+		//Players
+		players = new ArrayList<Player>();
+		for (int i = 0; i<2; i++) {
+			Player player = new Player(i);
+			players.add(player);
 		}
 		
 		//Two Piece Construction
 		for (int i = 0; i<2; i++) { //For Color
 			for (int j = 0; j<2; j++) { //For individual piece
 				//Constructs two for each color
-				Piece rook = new Piece(PieceType.R,i);
-				Piece knight = new Piece(PieceType.N,i);
-				Piece bishop = new Piece(PieceType.B,i);
+				Piece rook = new Rook(i);
+				Piece knight = new Knight(i);
+				Piece bishop = new Bishop(i);
 				if (j == 0) {
 					board[0][i*7] = rook;
 					board[2][i*7] = bishop;
@@ -51,26 +63,18 @@ public class Main {
 		}
 		//Royalty Construction
 		for (int i = 0; i<2; i++) {
-			Piece king = new Piece(PieceType.K,i); //Only one of each, so the number is zero
-			Piece queen = new Piece(PieceType.Q,i);
+			Piece king = new King(i); //Only one of each, so the number is zero
+			Piece queen = new Queen(i);
 			board[3][i*7] = queen;
 			board[4][i*7] = king;
 		}
 		//Pawn Construction
 		for (int i = 0; i<2; i++) { //For color
 			for (int j = 0; j<8; j++) { //Creates 8 total pawns
-				Piece pawn = new Piece(PieceType.P,i);
+				Piece pawn = new Pawn(i);
 				board[j][i*5+1] = pawn; //Goes across the rank, file changes for colors
 			}
 		}
-		
-		//Players
-		players = new ArrayList<Player>();
-		for (int i = 0; i<2; i++) {
-			Player player = new Player(i);
-			players.add(player);
-		}
-		
 		//Game loop
 		while(!checkmate) {
 			for (int i = 0; i<2; i=(i+1)%players.size()) {
