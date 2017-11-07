@@ -20,7 +20,9 @@ public class Rook extends Piece{
 	@Override
 	public void move(int x, int y, int moveX, int moveY) {
 		// TODO Auto-generated method stub
-		
+		if (Main.board[x][y].type.equals(PieceType.R)) {
+			//Does the rook move, if Math.abs(x-moveX)==Math.abs(y-moveY)&&!(x-moveX)==0, move
+		}
 	}
 
 	@Override

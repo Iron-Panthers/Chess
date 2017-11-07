@@ -20,8 +20,8 @@ public class Knight extends Piece{
 	public void move(int x, int y, int moveX, int moveY) {
 		
 		if (Main.board[x][y].type.equals(PieceType.N)) { //It is a knight
-			int nextX = owner.moveX();
-			int nextY = owner.moveY();
+			int nextX = moveX;
+			int nextY = moveY;
 			if (Main.board[x][y].color==color) { //Checks if player owns the piece
 				if (Math.abs(x-nextX)==2) { //Checks if change in x is 2
 					if (Math.abs(y-nextY)==1) {
