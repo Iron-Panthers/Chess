@@ -23,6 +23,15 @@ public class Main {
 	//Board
 	public static Piece board[][];
 	
+	//Pieces
+	public static Knight knight;
+	public static Rook rook;
+	public static Bishop bishop;
+	public static Queen queen;
+	public static King king;
+	public static Pawn pawn;
+	public static Blank blank;
+	
 	public static void main(String[] args) {
 		//Board
 		//Letters for pieces with a number to differentiate will be placed at certain parts of the board
@@ -30,7 +39,7 @@ public class Main {
 		//Adds Clear pieces
 		for (int i = 0; i<8; i++) { //2 equals no color
 			for (int j = 0; j<8; j++) {
-				Piece blank = new Blank(2);
+				blank = new Blank(2);
 				board[j][i] = blank;
 			}
 		}
@@ -45,9 +54,9 @@ public class Main {
 		for (int i = 0; i<2; i++) { //For Color
 			for (int j = 0; j<2; j++) { //For individual piece
 				//Constructs two for each color
-				Piece rook = new Rook(i);
-				Piece knight = new Knight(i);
-				Piece bishop = new Bishop(i);
+				rook = new Rook(i);
+				knight = new Knight(i);
+				bishop = new Bishop(i);
 				if (j == 0) {
 					board[0][i*7] = rook;
 					board[2][i*7] = bishop;
@@ -63,8 +72,8 @@ public class Main {
 		}
 		//Royalty Construction
 		for (int i = 0; i<2; i++) {
-			Piece king = new King(i); //Only one of each, so the number is zero
-			Piece queen = new Queen(i);
+			king = new King(i); //Only one of each, so the number is zero
+			queen = new Queen(i);
 			board[3][i*7] = queen;
 			board[4][i*7] = king;
 		}
@@ -113,7 +122,7 @@ public class Main {
 		for (int i = 7; i>=0; i--) { //For rows
 			System.out.print(i+1);
 			for (int j = 0; j<8; j++) { //For Columns
-				System.out.print("["+board[j][i].type+"]");
+				System.out.print("["+board[j][i].toString()+"]");
 			}
 			System.out.println();
 		}

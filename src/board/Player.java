@@ -29,12 +29,11 @@ public class Player {
 			String pInput = input.nextLine();
 			switch(pInput) {
 				case "N":
-//					int x = getX();
-//					int y = getY();
-//					int moveX = moveX();
-//					int moveY = moveY();
-					//Moves a knight with those things
-					//Main.board[][]knight();
+					int x = getX();
+					int y = getY();
+					int moveX = moveX();
+					int moveY = moveY();
+					Main.knight.move(x, y, moveX, moveY);
 					isChoosing = false;
 					break;
 				case "R":

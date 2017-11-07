@@ -17,6 +17,19 @@ public class Rook extends Piece{
 			}
 		}
 	}
+	public void choose(int x, int y, int moveX, int moveY) {
+		if ((0<=moveX && moveX<=7)&&(0<=moveY && moveY<=7)) { //Checks if move is in bounds
+			if (Main.board[x][y].type==(type)) { //It is a knight
+				if (Main.board[x][y].color==color) { //Checks if player owns the piece
+					move(x,y,moveX,moveY);
+				}
+				else {
+					System.out.println("That is not your piece");
+					owner.turn();
+				}
+			}	
+		}
+	}
 	@Override
 	public void move(int x, int y, int moveX, int moveY) {
 		// TODO Auto-generated method stub
@@ -30,5 +43,8 @@ public class Rook extends Piece{
 		// TODO Auto-generated method stub
 		
 	}
-
+	public String toString() {
+		return type.toString();
+		// TODO Auto-generated method stub
+	}
 }

@@ -18,5 +18,8 @@ public class Blank extends Piece{
 		// TODO Auto-generated method stub
 		
 	}
-
+	public String toString() {
+		return type.toString();
+		// TODO Auto-generated method stub
+	}
 }
