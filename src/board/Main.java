@@ -59,7 +59,7 @@ public class Main {
 		//Pawn Construction
 		for (int i = 0; i<2; i++) { //For color
 			for (int j = 0; j<8; j++) { //Creates 8 total pawns
-				Piece pawn = new Piece(PieceType.P,i,j);
+				Piece pawn = new Piece(PieceType.P,i);
 				board[j][i*5+1] = pawn; //Goes across the rank, file changes for colors
 			}
 		}

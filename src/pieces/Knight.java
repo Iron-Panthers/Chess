@@ -7,12 +7,12 @@ public class Knight extends Piece{
 	public int color;
 	public PieceType type;
 	public Player owner;
-	public Knight() {
+	public Knight(int color) {
+		this.color = color;
 		type = PieceType.N;
 		for (int i = 0; i<2; i++) { //Finds the player that matches the pieces color
 			if (Main.players.get(i).color == color) {
 				owner = Main.players.get(i);
-				color = owner.color;
 				continue;
 			}
 		}

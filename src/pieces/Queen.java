@@ -7,12 +7,12 @@ public class Queen extends Piece{
 	public Player owner;
 	public PieceType type;
 	public int color;
-	public Queen() {
+	public Queen(int color) {
+		this.color = color;
 		type = PieceType.Q;
 		for (int i = 0; i<2; i++) { //Finds the player that matches the pieces color
 			if (Main.players.get(i).color == color) {
 				owner = Main.players.get(i);
-				color = owner.color;
 				continue;
 			}
 		}
