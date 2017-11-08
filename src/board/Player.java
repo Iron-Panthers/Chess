@@ -19,50 +19,77 @@ public class Player {
 		Main.display();
 		boolean isChoosing = true;
 		while(isChoosing) {
-			System.out.print("Which piece would you like to move, ");
+			System.out.print("Where is the piece you would like to move, ");
 			if (color == 0) {
 				System.out.println("white?");
 			}
 			else {
 				System.out.println("black?");
 			}
-			String pInput = input.nextLine();
-			switch(pInput) {
-				case "N":
-					int x = getX();
-					int y = getY();
-					int moveX = moveX();
-					int moveY = moveY();
-					Main.knight.move(x, y, moveX, moveY);
-					isChoosing = false;
-					break;
-				case "R":
-					rook();
-					isChoosing = false;
-					break;
-				case "B":
-					bishop();
-					isChoosing = false;
-					break;
-				case "Q":
-					queen();
-					isChoosing = false;
-					break;
-				case "K":
-					king();
-					isChoosing = false;
-					break;
-				case "P":
-					pawn();
-					isChoosing = false;
-				default:
-					System.out.println("Invalid Letter for piece");
-					break;
-			}
+			int x = getX();
+			int y = getY();
+			int moveX = moveX();
+			int moveY = moveY();
+			Main.board[x][y].checkMove(x, y, moveX, moveY);
+			isChoosing = false;
 		}
 	}
 	public void checkTurn() {
 		System.out.println("You are in check. You need to get out of check");
+	}
+	public int getKingX() {
+		for (int i = 0; i<Main.board.length; i++) {
+			for (int j = 0; j<Main.board.length; j++) {
+				String type = Main.board[j][i].toString();
+				int thisColor = Main.currentPlayer.color;
+				if ((Main.board[j][i].color == thisColor)&&(type.equals("K"))) {
+					return j;
+				}
+			}
+			System.out.println();
+		}
+		return (Integer) null;
+	}
+	public int getKingY() {
+		for (int i = 0; i<Main.board.length; i++) {
+			for (int j = 0; j<Main.board.length; j++) {
+				String type = Main.board[j][i].toString();
+				int thisColor = Main.currentPlayer.color;
+				if ((Main.board[j][i].color == thisColor)&&(type.equals("K"))) {
+					return i;
+				}
+			}
+		}
+		return (Integer) null;
+	}
+	public boolean isChecked() {
+		int x = getKingX();
+		int y = getKingY();
+		return allTarget(x,y);
+	}
+	public boolean allTarget(int x, int y) {
+		Piece tempBoard[][] = Main.board;
+		for (int i = 0; i<Main.board.length; i++) {
+			for (int j = 0; j<Main.board.length; j++) {
+				if (tempBoard[j][i].color != color) {
+					tempBoard[j][i].checkMove(j, i, x, y); //Moves all pieces to king
+				}
+			}
+		}
+		if (allTargetCheck(tempBoard)) {
+			return true;
+		}
+		return false;
+	}
+	public boolean allTargetCheck(Piece tempBoard[][]) {
+		for (int i = 0; i<Main.board.length; i++) {
+			for (int j = 0; j<Main.board.length; j++) {
+				if (!((Main.board[j][i].color == tempBoard[j][i].color)&&(Main.board[j][i].type == tempBoard[j][i].type))) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 	public int moveY() {
 		int moveY;

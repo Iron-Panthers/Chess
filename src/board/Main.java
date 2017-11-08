@@ -94,7 +94,8 @@ public class Main {
 					isChecked = false;
 				}
 				else {
-					players.get(i).turn();
+					System.out.println(currentPlayer.color);
+					currentPlayer.turn();
 				}
 				isChecked = checkForCheck();
 			}
@@ -115,8 +116,8 @@ public class Main {
 		//Check for check after each move, if an enemy piece can move to the king's square, then the defender must get out of check
 	}
 	public static boolean checkForCheck() {
+		return nextPlayer.isChecked();
 		//Sees if any of the enemies pieces are in check
-		return false;
 	}
 	public static void display() {
 		for (int i = 7; i>=0; i--) { //For rows
