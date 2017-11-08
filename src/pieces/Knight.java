@@ -2,6 +2,7 @@ package pieces;
 
 import java.util.ArrayList;
 
+import board.Constants;
 import board.Main;
 import board.Player;
 
@@ -20,7 +21,7 @@ public class Knight extends Piece{
 		}
 	}
 	public void checkMove(int x, int y, int moveX, int moveY) {
-		if ((0<=moveX && moveX<=7)&&(0<=moveY && moveY<=7)) { //Checks if move is in bounds
+		if ((0<=moveX && moveX<=Constants.BOARD_LENGTH-1)&&(0<=moveY && moveY<=Constants.BOARD_HEIGHT-1)) { //Checks if move is in bounds
 			if (Main.board[x][y].type==(type)) { //It is a knight
 				if (Main.board[x][y].color==color) { //Checks if player owns the piece
 					if (!owner.isChecked()) {
@@ -59,8 +60,8 @@ public class Knight extends Piece{
 	@Override
 	public ArrayList<String> legalMoves(int x, int y) {
 		ArrayList<String> legalMoves = new ArrayList<String>();
-		int i = 2; //Max change in a value for a knight
-		int j = 1; //Min change in a value for a knight
+		int i = Constants.KNIGHT_MAX_MOVEMENT; //Max change in a value for a knight
+		int j = Constants.KNIGHT_MIN_MOVEMENT; //Min change in a value for a knight
 		// TODO Auto-generated method stub
 		if (x+i<=7 && x+i>=0) { //X is in the range when 2 is added
 			if (y+j<=7 && y+j>=0) { //Y is in range when 2 is added

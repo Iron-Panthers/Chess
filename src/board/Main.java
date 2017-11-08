@@ -35,10 +35,10 @@ public class Main {
 	public static void main(String[] args) {
 		//Board
 		//Letters for pieces with a number to differentiate will be placed at certain parts of the board
-		board = new Piece[8][8]; //8 by 8, stops at 7
+		board = new Piece[Constants.BOARD_LENGTH][Constants.BOARD_HEIGHT]; //8 by 8, stops at 7
 		//Adds Clear pieces
-		for (int i = 0; i<8; i++) { //2 equals no color
-			for (int j = 0; j<8; j++) {
+		for (int i = 0; i<Constants.BOARD_HEIGHT; i++) { //2 equals no color
+			for (int j = 0; j<Constants.BOARD_LENGTH; j++) {
 				blank = new Blank(2);
 				board[j][i] = blank;
 			}
@@ -58,15 +58,15 @@ public class Main {
 				knight = new Knight(i);
 				bishop = new Bishop(i);
 				if (j == 0) {
-					board[0][i*7] = rook;
-					board[2][i*7] = bishop;
-					board[1][i*7] = knight; //If zero, it is on first rank, if 1, it is on last rank
+					board[Constants.ROOK_POSITION][i*board.length-1] = rook;
+					board[Constants.BISHOP_SECOND_POSITION][i*board.length-1] = bishop;
+					board[Constants.KNIGHT_POSITION][i*board.length-1] = knight; //If zero, it is on first rank, if 1, it is on last rank
 					
 				}
 				else if (j == 1) {
-					board[7][i*7] = rook;
-					board[5][i*7] = bishop;
-					board[6][i*7] = knight; //If zero, it is on first rank, if 1, it is on last rank
+					board[Constants.ROOK_SECOND_POSITION][i*board.length-1] = rook;
+					board[Constants.BISHOP_SECOND_POSITION][i*board.length-1] = bishop;
+					board[Constants.KNIGHT_SECOND_POSITION][i*board.length-1] = knight; //If zero, it is on first rank, if 1, it is on last rank
 				}
 			}
 		}
@@ -74,14 +74,14 @@ public class Main {
 		for (int i = 0; i<2; i++) {
 			king = new King(i); //Only one of each, so the number is zero
 			queen = new Queen(i);
-			board[3][i*7] = queen;
-			board[4][i*7] = king;
+			board[Constants.QUEEN_POSITION][i*board.length-1] = queen;
+			board[Constants.KING_POSITION][i*board.length-1] = king;
 		}
 		//Pawn Construction
 		for (int i = 0; i<2; i++) { //For color
-			for (int j = 0; j<8; j++) { //Creates 8 total pawns
+			for (int j = 0; j<Constants.PAWN_NUMBER; j++) { //Creates 8 total pawns
 				Piece pawn = new Pawn(i);
-				board[j][i*5+1] = pawn; //Goes across the rank, file changes for colors
+				board[j][(i*board.length-3)+1] = pawn; //Goes across the rank, file changes for colors
 			}
 		}
 		//Game loop
@@ -120,9 +120,9 @@ public class Main {
 		//Sees if any of the enemies pieces are in check
 	}
 	public static void display() {
-		for (int i = 7; i>=0; i--) { //For rows
+		for (int i = board.length-1; i>=0; i--) { //For rows
 			System.out.print(i+1);
-			for (int j = 0; j<8; j++) { //For Columns
+			for (int j = 0; j<board.length; j++) { //For Columns
 				System.out.print("["+board[j][i].toString()+"]");
 			}
 			System.out.println();

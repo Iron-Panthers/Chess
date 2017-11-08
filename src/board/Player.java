@@ -167,92 +167,7 @@ public class Player {
 			}
 		}	
 		return (Integer) null;
-		//Moves piece to square specified
-		
-	}
-	public void knight() {
-		int x = getX();
-		int y = getY();
-		if (Main.board[x][y].type.equals(PieceType.N)) { //It is a knight
-			int nextX = moveX();
-			int nextY = moveY();
-			if (Main.board[x][y].color==color) { //Checks if player owns the piece
-				if (Math.abs(x-nextX)==2) { //Checks if change in x is 2
-					if (Math.abs(y-nextY)==1) {
-						//Succeeds
-						if (!Main.board[nextX][nextY].type.equals(PieceType.X)) { //If not blank
-							if (Main.board[nextX][nextY].color == color) { //Colors match, same team, cannot take
-								System.out.println("You cannot move a piece on top of another one of your pieces");
-							}
-							else {
-								//Finds a blank to set the empty spot to
-								for (int i = 0; i<8; i++) {
-									for (int j = 0; j<8; j++) {
-										//If the piece found is blank, set empty space to blank
-										if (Main.board[j][i].type.equals(PieceType.X)) {
-											Main.board[nextX][nextY]=Main.board[x][y];
-											Main.board[x][y] = Main.board[j][i];
-											break;
-										}
-									}
-								}
-							}
-						}
-						else {
-							//Replaces blank with knight, replaces knight with blank
-							Piece blank = Main.board[nextX][nextY];
-							Main.board[nextX][nextY]=Main.board[x][y];
-							Main.board[x][y] = blank;
-						}
-					}
-					else {
-						System.out.println("Invalid knight move");
-						turn();
-					}
-				}
-				else if (Math.abs(x-nextX)==1) { //Checks if change in y is 2
-					if (Math.abs(y-nextY)==2) {
-						//Succeeds
-						if (!Main.board[nextX][nextY].type.equals(PieceType.X)) { //If not blank
-							if (Main.board[nextX][nextY].color == color) { //Colors match, same team, cannot take
-								System.out.println("You cannot move a piece on top of another one of your pieces");
-							}
-							else {
-								//Finds a blank to set the empty spot to
-								for (int i = 0; i<8; i++) {
-									for (int j = 0; j<8; j++) {
-										//If the piece found is blank, set empty space to blank
-										if (Main.board[j][i].type.equals(PieceType.X)) {
-											Main.board[nextX][nextY]=Main.board[x][y];
-											Main.board[x][y] = Main.board[j][i];
-											break;
-										}
-									}
-								}
-							}
-						}
-						else {
-							//Replaces blank with knight, replaces knight with blank
-							Piece blank = Main.board[nextX][nextY];
-							Main.board[nextX][nextY]=Main.board[x][y];
-							Main.board[x][y] = blank;
-						}
-					}
-					else {
-						System.out.println("Invalid knight move");
-						turn();
-					}
-				}
-				else {
-					System.out.println("Invalid knight move");
-					turn();
-				}
-			}
-			else {
-				System.out.println("That is not your piece");
-				turn();
-			}
-		}
+		//Moves piece to square specified	
 	}
 	public int getY() {
 		int y;
@@ -331,35 +246,5 @@ public class Player {
 			}
 		}
 		return (Integer) null;
-	}
-	public void pawn() {
-		int x = getX();
-		int y = getY();
-		int nextX = moveX();
-		int nextY = moveY();
-	}
-	public void rook() {
-		int x = getX();
-		int y = getY();
-		int nextX = moveX();
-		int nextY = moveY();
-	}
-	public void bishop() {
-		int x = getX();
-		int y = getY();
-		int nextX = moveX();
-		int nextY = moveY();
-	}
-	public void queen() {
-		int x = getX();
-		int y = getY();
-		int nextX = moveX();
-		int nextY = moveY();
-	}
-	public void king() {
-		int x = getX();
-		int y = getY();
-		int nextX = moveX();
-		int nextY = moveY();
 	}
 }
