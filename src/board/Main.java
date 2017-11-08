@@ -58,15 +58,15 @@ public class Main {
 				knight = new Knight(i);
 				bishop = new Bishop(i);
 				if (j == 0) {
-					board[Constants.ROOK_POSITION][i*board.length-1] = rook;
-					board[Constants.BISHOP_SECOND_POSITION][i*board.length-1] = bishop;
-					board[Constants.KNIGHT_POSITION][i*board.length-1] = knight; //If zero, it is on first rank, if 1, it is on last rank
+					board[Constants.ROOK_POSITION][i*Constants.BOARD_LENGTH-1] = rook;
+					board[Constants.BISHOP_SECOND_POSITION][i*Constants.BOARD_LENGTH-1] = bishop;
+					board[Constants.KNIGHT_POSITION][i*Constants.BOARD_LENGTH-1] = knight; //If zero, it is on first rank, if 1, it is on last rank
 					
 				}
 				else if (j == 1) {
-					board[Constants.ROOK_SECOND_POSITION][i*board.length-1] = rook;
-					board[Constants.BISHOP_SECOND_POSITION][i*board.length-1] = bishop;
-					board[Constants.KNIGHT_SECOND_POSITION][i*board.length-1] = knight; //If zero, it is on first rank, if 1, it is on last rank
+					board[Constants.ROOK_SECOND_POSITION][i*Constants.BOARD_LENGTH-1] = rook;
+					board[Constants.BISHOP_SECOND_POSITION][i*Constants.BOARD_LENGTH-1] = bishop;
+					board[Constants.KNIGHT_SECOND_POSITION][i*Constants.BOARD_LENGTH-1] = knight; //If zero, it is on first rank, if 1, it is on last rank
 				}
 			}
 		}
