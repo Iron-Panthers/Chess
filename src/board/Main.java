@@ -58,15 +58,15 @@ public class Main {
 				knight = new Knight(i);
 				bishop = new Bishop(i);
 				if (j == 0) {
-					board[Constants.ROOK_POSITION][i*Constants.BOARD_LENGTH-1] = rook;
-					board[Constants.BISHOP_SECOND_POSITION][i*Constants.BOARD_LENGTH-1] = bishop;
-					board[Constants.KNIGHT_POSITION][i*Constants.BOARD_LENGTH-1] = knight; //If zero, it is on first rank, if 1, it is on last rank
+					board[Constants.ROOK_POSITION][i*(Constants.BOARD_LENGTH-1)] = rook;
+					board[Constants.BISHOP_POSITION][i*(Constants.BOARD_LENGTH-1)] = bishop;
+					board[Constants.KNIGHT_POSITION][i*(Constants.BOARD_LENGTH-1)] = knight; //If zero, it is on first rank, if 1, it is on last rank
 					
 				}
 				else if (j == 1) {
-					board[Constants.ROOK_SECOND_POSITION][i*Constants.BOARD_LENGTH-1] = rook;
-					board[Constants.BISHOP_SECOND_POSITION][i*Constants.BOARD_LENGTH-1] = bishop;
-					board[Constants.KNIGHT_SECOND_POSITION][i*Constants.BOARD_LENGTH-1] = knight; //If zero, it is on first rank, if 1, it is on last rank
+					board[Constants.ROOK_SECOND_POSITION][i*(Constants.BOARD_LENGTH-1)] = rook;
+					board[Constants.BISHOP_SECOND_POSITION][i*(Constants.BOARD_LENGTH-1)] = bishop;
+					board[Constants.KNIGHT_SECOND_POSITION][i*(Constants.BOARD_LENGTH-1)] = knight; //If zero, it is on first rank, if 1, it is on last rank
 				}
 			}
 		}
@@ -74,14 +74,14 @@ public class Main {
 		for (int i = 0; i<2; i++) {
 			king = new King(i); //Only one of each, so the number is zero
 			queen = new Queen(i);
-			board[Constants.QUEEN_POSITION][i*board.length-1] = queen;
-			board[Constants.KING_POSITION][i*board.length-1] = king;
+			board[Constants.QUEEN_POSITION][i*(Constants.BOARD_LENGTH-1)] = queen;
+			board[Constants.KING_POSITION][i*(Constants.BOARD_LENGTH-1)] = king;
 		}
 		//Pawn Construction
 		for (int i = 0; i<2; i++) { //For color
 			for (int j = 0; j<Constants.PAWN_NUMBER; j++) { //Creates 8 total pawns
 				Piece pawn = new Pawn(i);
-				board[j][(i*board.length-3)+1] = pawn; //Goes across the rank, file changes for colors
+				board[j][(i*(board.length-3))+1] = pawn; //Goes across the rank, file changes for colors
 			}
 		}
 		//Game loop

@@ -7,8 +7,8 @@ public class Constants {
 	
 	//Piece positions
 	public static final int ROOK_POSITION = 0;
-	public static final int BISHOP_POSITION = 1;
-	public static final int KNIGHT_POSITION = 2;
+	public static final int BISHOP_POSITION = 2;
+	public static final int KNIGHT_POSITION = 1;
 	public static final int QUEEN_POSITION = 3;
 	public static final int KING_POSITION = 4;
 	public static final int BISHOP_SECOND_POSITION = 5;
