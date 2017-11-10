@@ -28,7 +28,7 @@ public class King extends Piece{
 	}
 	public boolean isInRange(int x, int y) { //Checks if move is in bounds
 		if (x<=(Constants.BOARD_LENGTH-1)&&x>=0) {
-			if (y<=(Constants.BOARD_LENGTH-1)&&y>=0) {
+			if (y<=(Constants.BOARD_HEIGHT-1)&&y>=0) {
 				return true;
 			}
 		}

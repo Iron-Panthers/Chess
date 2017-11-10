@@ -28,7 +28,7 @@ public class Rook extends Piece{
 	}
 	public boolean isInRange(int x, int y) { //Checks if move is in bounds
 		if (x<=(Constants.BOARD_LENGTH-1)&&x>=0) {
-			if (y<=(Constants.BOARD_LENGTH-1)&&y>=0) {
+			if (y<=(Constants.BOARD_HEIGHT-1)&&y>=0) {
 				return true;
 			}
 		}
@@ -82,8 +82,10 @@ public class Rook extends Piece{
 		ArrayList<String> legalMoves = new ArrayList<String>();
 		//Horizontal to the right
 		for (int i = 0; i<(Constants.BOARD_LENGTH-1)-x; i++) {
-			if ((board[x+i][y].color != color)&&(((x+i)>=0))&&((x+i)<=7)) {
-				legalMoves.add((x+i)+","+y);
+			if (isInRange(x+i,y)) {
+				if (board[x+i][y].color != color){
+					legalMoves.add((x+i)+","+y);
+				}
 			}
 			else {
 				break;
@@ -91,8 +93,10 @@ public class Rook extends Piece{
 		}
 		//Horizontal to the left
 		for (int i = 0; i>-(Constants.BOARD_HEIGHT-1)-x; i--) {
-			if ((board[x+i][y].color != color)&&(((x+i)>=0))&&((x+i)<=7)) {
-				legalMoves.add((x+i)+","+y);
+			if (isInRange(x+i,y)) {
+				if ((board[x+i][y].color != color)) {
+					legalMoves.add((x+i)+","+y);
+				}
 			}
 			else {
 				break;
@@ -100,8 +104,10 @@ public class Rook extends Piece{
 		}
 		//Vertical up
 		for (int i = 0; i<(Constants.BOARD_HEIGHT-1)-y; i++) {
-			if ((board[x][y+i].color != color)&&(((y+i)>=0))&&((y+i)<=7)) {
-				legalMoves.add(x+","+(y+i));
+			if (isInRange(x,y+i)) {
+				if ((board[x][y+i].color != color)) {
+					legalMoves.add(x+","+(y+i));
+				}
 			}
 			else {
 				break;
@@ -109,8 +115,10 @@ public class Rook extends Piece{
 		}
 		//Vertical down
 		for (int i = 0; i>-(Constants.BOARD_HEIGHT-1)-y; i--) {
-			if ((board[x][y+i].color != color)&&(((y+i)>=0))&&((y+i)<=7)) {
-				legalMoves.add(x+","+(y+i));
+			if (isInRange(x,y+i)) {
+				if ((board[x][y+i].color != color)) {
+					legalMoves.add(x+","+(y+i));
+				}
 			}
 			else {
 				break;
