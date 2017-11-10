@@ -128,12 +128,16 @@ public class Pawn extends Piece{
 		ArrayList<String> legalMoves = new ArrayList<String>();
 		//Movement
 		if (canDoubleMove(y)) {
-			if ((isBlank(x,y+1))&&(isBlank(x,y+2))) {
-				legalMoves.add(x+","+(y+2));
+			if (isInRange(x,y+1)&&isInRange(x,y+2)) {
+				if ((isBlank(x,y+1))&&(isBlank(x,y+2))) {
+					legalMoves.add(x+","+(y+2));
+				}
 			}
 		}
-		if (isBlank(x,y+1)) {
-			legalMoves.add(x+","+(y+1));
+		if (isInRange(x,y+1)) {
+			if (isBlank(x,y+1)) {
+				legalMoves.add(x+","+(y+1));
+			}
 		}
 		//Capture Left
 		if (canCapture(x-1,y+1)) {
