@@ -45,7 +45,7 @@ public class Pawn extends Piece{
 					return true;
 				}
 				else {
-					System.out.println("That is not your piece");
+					System.out.println("Invalid move");
 					return false;
 				}
 			}	
@@ -127,25 +127,50 @@ public class Pawn extends Piece{
 		// TODO Auto-generated method stub
 		ArrayList<String> legalMoves = new ArrayList<String>();
 		//Movement
-		if (canDoubleMove(y)) {
-			if (isInRange(x,y+1)&&isInRange(x,y+2)) {
-				if ((isBlank(x,y+1))&&(isBlank(x,y+2))) {
-					legalMoves.add(x+","+(y+2));
+		if (toString().equals("P")) {
+			if (canDoubleMove(y)) {
+				if (isInRange(x,y+1)&&isInRange(x,y+2)) {
+					if ((isBlank(x,y+1))&&(isBlank(x,y+2))) {
+						legalMoves.add(x+","+(y+2));
+					}
 				}
 			}
-		}
-		if (isInRange(x,y+1)) {
-			if (isBlank(x,y+1)) {
-				legalMoves.add(x+","+(y+1));
+			if (isInRange(x,y+1)) {
+				if (isBlank(x,y+1)) {
+					legalMoves.add(x+","+(y+1));
+				}
+			}
+			//Capture Left
+			if (canCapture(x-1,y+1)) {
+				legalMoves.add((x-1)+","+(y+1));
+			}
+			//Capture right
+			if (canCapture((x+1),(y+1))){
+				legalMoves.add((x+1)+","+(y+1));
 			}
 		}
-		//Capture Left
-		if (canCapture(x-1,y+1)) {
-			legalMoves.add((x-1)+","+(y+1));
-		}
-		//Capture right
-		if (canCapture((x+1),(y+1))){
-			legalMoves.add((x+1)+","+(y+1));
+		//If black, pawns move backwards
+		else {
+			if (canDoubleMove(y)) {
+				if (isInRange(x,y-1)&&isInRange(x,y-2)) {
+					if ((isBlank(x,y-1))&&(isBlank(x,y-2))) {
+						legalMoves.add(x+","+(y-2));
+					}
+				}
+			}
+			if (isInRange(x,y-1)) {
+				if (isBlank(x,y-1)) {
+					legalMoves.add(x+","+(y-1));
+				}
+			}
+			//Capture Left
+			if (canCapture(x-1,y-1)) {
+				legalMoves.add((x-1)+","+(y-1));
+			}
+			//Capture right
+			if (canCapture((x+1),(y-1))){
+				legalMoves.add((x+1)+","+(y-1));
+			}
 		}
 		return legalMoves;
 	}

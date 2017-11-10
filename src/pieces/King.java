@@ -45,7 +45,7 @@ public class King extends Piece{
 					return true;
 				}
 				else {
-					System.out.println("That is not your piece");
+					System.out.println("Invalid move");
 					return false;
 				}
 			}	
