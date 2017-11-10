@@ -82,17 +82,21 @@ public class King extends Piece{
 		//Rook Moves
 		//Horizontal to the right
 		for (int i = 0; i<maxDistance; i++) {
-			if ((board[x+i][y].color != color)&&(((x+i)>=0))&&((x+i)<=7)) {
-				legalMoves.add((x+i)+","+y);
+			if (isInRange(x+i,y)) {
+				if (!(board[x+i][y].toString().equals(toString()))){
+					legalMoves.add((x+i)+","+y);
+				}
 			}
 			else {
 				break;
 			}
 		}
 		//Horizontal to the left
-		for (int i = 0; i>-maxDistance; i--) {
-			if ((board[x+i][y].color != color)&&(((x+i)>=0))&&((x+i)<=7)) {
-				legalMoves.add((x+i)+","+y);
+		for (int i = 0; i>maxDistance; i--) {
+			if (isInRange(x+i,y)) {
+				if (!(board[x+i][y].toString().equals(toString()))) {
+					legalMoves.add((x+i)+","+y);
+				}
 			}
 			else {
 				break;
@@ -100,17 +104,21 @@ public class King extends Piece{
 		}
 		//Vertical up
 		for (int i = 0; i<maxDistance; i++) {
-			if ((board[x][y+i].color != color)&&(((y+i)>=0))&&((y+i)<=7)) {
-				legalMoves.add(x+","+(y+i));
+			if (isInRange(x,y+i)) {
+				if (!(board[x][y+i].toString().equals(toString()))) {
+					legalMoves.add(x+","+(y+i));
+				}
 			}
 			else {
 				break;
 			}
 		}
 		//Vertical down
-		for (int i = 0; i>-maxDistance; i--) {
-			if ((board[x][y+i].color != color)&&(((y+i)>=0))&&((y+i)<=7)) {
-				legalMoves.add(x+","+(y+i));
+		for (int i = 0; i>maxDistance; i--) {
+			if (isInRange(x,y+i)) {
+				if (!(board[x][y+i].toString().equals(toString()))) {
+					legalMoves.add(x+","+(y+i));
+				}
 			}
 			else {
 				break;
@@ -120,8 +128,10 @@ public class King extends Piece{
 		//Up and to the right
 		for (int i = 0; i<maxDistance; i++) {
 			//Sees if this move is in the board and is not moving on its own color
-			if ((board[x+i][y+i].color != color)&&(((x+i)>=0)&&((x+i)<=7))&&((y+i)>=0)&&((y+i)<=7)){
-				legalMoves.add((x+i)+","+(y+i));
+			if (isInRange(x+i,y+i)) {
+				if (!(board[x+i][y+i].toString().equals(toString()))){
+					legalMoves.add((x+i)+","+(y+i));
+				}
 			}
 			else {
 				break;
@@ -130,8 +140,10 @@ public class King extends Piece{
 		//Up and to the left 
 		for (int i = 0; i<maxDistance; i++) {
 			//Sees if this move is in the board and is not moving on its own color
-			if ((board[x-i][y+i].color != color)&&(((x-i)>=0)&&((x-i)<=7))&&((y+i)>=0)&&((y+i)<=7)){
-				legalMoves.add((x-i)+","+(y+i));
+			if (isInRange(x-i,y+i)) {
+				if (!(board[x-i][y+i].toString().equals(toString()))){
+					legalMoves.add((x-i)+","+(y+i));
+				}
 			}
 			else {
 				break;
@@ -140,8 +152,10 @@ public class King extends Piece{
 		//Down and to the right
 		for (int i = 0; i<maxDistance; i++) {
 			//Sees if this move is in the board and is not moving on its own color
-			if ((board[x+i][y-i].color != color)&&(((x+i)>=0)&&((x+i)<=7))&&((y-i)>=0)&&((y-i)<=7)){
-				legalMoves.add((x+i)+","+(y-i));
+			if (isInRange(x+i,y-i)) {
+				if (!(board[x+i][y-i].toString().equals(toString()))){
+					legalMoves.add((x+i)+","+(y-i));
+				}
 			}
 			else {
 				break;
@@ -150,8 +164,10 @@ public class King extends Piece{
 		//Down and to the left
 		for (int i = 0; i<maxDistance; i++) {
 			//Sees if this move is in the board and is not moving on its own color
-			if ((board[x-i][y-i].color != color)&&(((x-i)>=0)&&((x-i)<=7))&&((y-i)>=0)&&((y-i)<=7)){
-				legalMoves.add((x-i)+","+(y-i));
+			if (isInRange(x-i,y-i)) {
+				if (!(board[x-i][y-i].toString().equals(toString()))){
+					legalMoves.add((x-i)+","+(y-i));
+				}
 			}
 			else {
 				break;
