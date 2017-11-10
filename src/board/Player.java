@@ -109,7 +109,7 @@ public class Player {
 	public boolean allTargetCheck(Piece tempBoard[][]) {
 		for (int i = 0; i<Main.board.length; i++) {
 			for (int j = 0; j<Main.board.length; j++) {
-				if (!((Main.board[j][i].color == tempBoard[j][i].color)&&(Main.board[j][i].toString().equals(tempBoard[j][i].toString())))) {
+				if (!(Main.board[j][i].toString().equals(tempBoard[j][i].toString()))) {
 					return true;
 				}
 			}

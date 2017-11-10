@@ -92,7 +92,7 @@ public class Pawn extends Piece{
 		return false;
 	}
 	public boolean isBlank(int x, int y) {
-		return board[x][y].toString() == "X";
+		return board[x][y].toString().equals("X");
 	}
 	public boolean canCapture(int moveX, int moveY) {
 		if (((moveY>=0)&&(moveY<=7))&&((moveX>=0)&&(moveX<=7)))
