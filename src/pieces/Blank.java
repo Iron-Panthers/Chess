@@ -25,13 +25,13 @@ public class Blank extends Piece{
 		return null;
 	}
 	@Override
-	public void checkMove(int x, int y, int moveX, int moveY) {
+	public boolean checkMove(int x, int y, int moveX, int moveY, Piece[][] board) {
 		// TODO Auto-generated method stub
-		
+		return false;
 	}
 	@Override
-	public void movePiece(ArrayList<String> legalMoves, int x, int y, int moveX, int moveY) {
+	public boolean movePiece(ArrayList<String> legalMoves, int x, int y, int moveX, int moveY) {
 		// TODO Auto-generated method stub
-		
+		return false;
 	}
 }

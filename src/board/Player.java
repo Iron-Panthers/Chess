@@ -1,13 +1,14 @@
 package board;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import pieces.Piece;
-import pieces.PieceType;
 
 public class Player {
 	Scanner input;
 	public int color;
 	public char[] pInputArray;
+	public Piece[][] tempBoard;
 	
 	public Player(int color) {
 		this.color = color;
@@ -17,6 +18,9 @@ public class Player {
 	public void turn() {
 		//Asks for move
 		Main.display();
+		color = Main.currentColor;
+		tempBoard = Main.board;
+//		System.out.println(color);
 		boolean isChoosing = true;
 		while(isChoosing) {
 			System.out.print("Where is the piece you would like to move, ");
@@ -30,12 +34,22 @@ public class Player {
 			int y = getY();
 			int moveX = moveX();
 			int moveY = moveY();
-			Main.board[x][y].checkMove(x, y, moveX, moveY);
+//			Main.board[moveX][moveY] = Main.board[x][y];
+//			Main.board[x][y] = Main.blank;
+			if(tempBoard[x][y].checkMove(x, y, moveX, moveY, tempBoard)) {
+				if (isChecked()) {
+					break;
+				}
+				else {
+					Main.board[x][y].checkMove(x, y, moveX, moveY, Main.board);
+				}
+			}
 			isChoosing = false;
 		}
 	}
 	public void checkTurn() {
 		System.out.println("You are in check. You need to get out of check");
+		turn();
 	}
 	public int getKingX() {
 		for (int i = 0; i<Main.board.length; i++) {
@@ -72,7 +86,7 @@ public class Player {
 		for (int i = 0; i<Main.board.length; i++) {
 			for (int j = 0; j<Main.board.length; j++) {
 				if (tempBoard[j][i].color != color) {
-					tempBoard[j][i].checkMove(j, i, x, y); //Moves all pieces to king
+					tempBoard[j][i].checkMove(j, i, x, y,tempBoard); //Moves all pieces to king
 				}
 			}
 		}
@@ -84,7 +98,7 @@ public class Player {
 	public boolean allTargetCheck(Piece tempBoard[][]) {
 		for (int i = 0; i<Main.board.length; i++) {
 			for (int j = 0; j<Main.board.length; j++) {
-				if (!((Main.board[j][i].color == tempBoard[j][i].color)&&(Main.board[j][i].type == tempBoard[j][i].type))) {
+				if (!((Main.board[j][i].color == tempBoard[j][i].color)&&(Main.board[j][i].toString().equals(tempBoard[j][i].toString())))) {
 					return true;
 				}
 			}

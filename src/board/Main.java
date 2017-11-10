@@ -15,6 +15,7 @@ public class Main {
 	public static ArrayList<Player> players;
 	public static Player currentPlayer;
 	public static Player nextPlayer;
+	public static int currentColor;
 	
 	//Booleans
 	public static boolean checkmate=false;
@@ -40,7 +41,9 @@ public class Main {
 		for (int i = 0; i<Constants.BOARD_HEIGHT; i++) { //2 equals no color
 			for (int j = 0; j<Constants.BOARD_LENGTH; j++) {
 				blank = new Blank(2);
+//				System.out.println(blank.color);
 				board[j][i] = blank;
+//				System.out.println(board[j][i].color);
 			}
 		}
 		//Players
@@ -58,7 +61,10 @@ public class Main {
 				knight = new Knight(i);
 				bishop = new Bishop(i);
 				if (j == 0) {
+					
 					board[Constants.ROOK_POSITION][i*(Constants.BOARD_LENGTH-1)] = rook;
+//					Piece rookPlace = board[Constants.ROOK_POSITION][i*(Constants.BOARD_LENGTH-1)];
+//					System.out.println(rookPlace.color = i);
 					board[Constants.BISHOP_POSITION][i*(Constants.BOARD_LENGTH-1)] = bishop;
 					board[Constants.KNIGHT_POSITION][i*(Constants.BOARD_LENGTH-1)] = knight; //If zero, it is on first rank, if 1, it is on last rank
 					
@@ -88,13 +94,13 @@ public class Main {
 		while(!checkmate) {
 			for (int i = 0; i<2; i=(i+1)%players.size()) {
 				currentPlayer = players.get(i);
+				currentColor = currentPlayer.color;
 				nextPlayer = players.get((i+1)%players.size());
 				if(isChecked) {
 					currentPlayer.checkTurn();
 					isChecked = false;
 				}
 				else {
-					System.out.println(currentPlayer.color);
 					currentPlayer.turn();
 				}
 				isChecked = checkForCheck();
@@ -124,6 +130,7 @@ public class Main {
 			System.out.print(i+1);
 			for (int j = 0; j<board.length; j++) { //For Columns
 				System.out.print("["+board[j][i].toString()+"]");
+//				System.out.print("["+board[j][i].color+"]");
 			}
 			System.out.println();
 		}

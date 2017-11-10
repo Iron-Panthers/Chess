@@ -19,6 +19,11 @@ public class Constants {
 	public static final int KNIGHT_MAX_MOVEMENT = 2;
 	public static final int KNIGHT_MIN_MOVEMENT = 1;
 	
-	//Pawn numbers
+	//Pawn stuff
 	public static final int PAWN_NUMBER = 8;
+	//                                              Always add one to this
+	public static final int PAWN_POSITION_MULTIPLIER = BOARD_HEIGHT-3; //Number to multiply i by to get the right position for white and black
+	
+	//King stuff
+	public static final int KING_MAX_MOVEMENT = 1;
 }
