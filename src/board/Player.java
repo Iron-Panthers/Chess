@@ -56,7 +56,12 @@ public class Player {
 			for (int j = 0; j<Main.board.length; j++) {
 				String type = Main.board[j][i].toString();
 				int thisColor = Main.currentPlayer.color;
-				if ((Main.board[j][i].color == thisColor)&&(type.equals("K"))) {
+				if (Main.board[j][i].color == 0) {
+					if (type.equals("K"));
+					return j;
+				}
+				else {
+					if (type.equals("k"));
 					return j;
 				}
 			}
@@ -69,10 +74,16 @@ public class Player {
 			for (int j = 0; j<Main.board.length; j++) {
 				String type = Main.board[j][i].toString();
 				int thisColor = Main.currentPlayer.color;
-				if ((Main.board[j][i].color == thisColor)&&(type.equals("K"))) {
+				if (Main.board[j][i].color == 0) {
+					if (type.equals("K"));
+					return i;
+				}
+				else {
+					if (type.equals("k"));
 					return i;
 				}
 			}
+			System.out.println();
 		}
 		return (Integer) null;
 	}

@@ -34,4 +34,10 @@ public class Blank extends Piece{
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public boolean isInRange(int x, int y) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

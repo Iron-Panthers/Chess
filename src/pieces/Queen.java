@@ -13,7 +13,12 @@ public class Queen extends Piece{
 	public Piece[][] board;
 	public Queen(int color) {
 		this.color = color;
-		type = PieceType.Q;
+		if (color == 0) {
+			type = PieceType.Q;
+		}
+		else {
+			type = PieceType.q;
+		}
 		for (int i = 0; i<2; i++) { //Finds the player that matches the pieces color
 			if (Main.players.get(i).color == color) {
 				owner = Main.players.get(i);
@@ -21,11 +26,19 @@ public class Queen extends Piece{
 			}
 		}
 	}
+	public boolean isInRange(int x, int y) { //Checks if move is in bounds
+		if (x<=(Constants.BOARD_LENGTH-1)&&x>=0) {
+			if (y<=(Constants.BOARD_LENGTH-1)&&y>=0) {
+				return true;
+			}
+		}
+		return false;
+	}
 	public boolean checkMove(int x, int y, int moveX, int moveY, Piece[][] board) {
 		this.board = board;
 //		System.out.println();
 //		System.out.println(color);
-		if ((0<=moveX && moveX<=7)&&(0<=moveY && moveY<=7)) { //Checks if move is in bounds
+		if (isInRange(moveX,moveY)) {
 			if (board[x][y].toString().equals(toString())) {
 				if (board[x][y].color==color) { //Checks if player owns the piece
 					ArrayList<String> legalMoves = legalMoves(x,y);
