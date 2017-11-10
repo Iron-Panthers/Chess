@@ -101,8 +101,10 @@ public class Queen extends Piece{
 		//Rook Moves
 		//Horizontal to the right
 		for (int i = 0; i<(Constants.BOARD_LENGTH-1)-x; i++) {
-			if ((board[x+i][y].color != color)&&(((x+i)>=0))&&((x+i)<=7)) {
-				legalMoves.add((x+i)+","+y);
+			if (isInRange(x+i,y)) {
+				if (board[x+i][y].color != color){
+					legalMoves.add((x+i)+","+y);
+				}
 			}
 			else {
 				break;
@@ -110,8 +112,10 @@ public class Queen extends Piece{
 		}
 		//Horizontal to the left
 		for (int i = 0; i>-(Constants.BOARD_HEIGHT-1)-x; i--) {
-			if ((board[x+i][y].color != color)&&(((x+i)>=0))&&((x+i)<=7)) {
-				legalMoves.add((x+i)+","+y);
+			if (isInRange(x+i,y)) {
+				if ((board[x+i][y].color != color)) {
+					legalMoves.add((x+i)+","+y);
+				}
 			}
 			else {
 				break;
@@ -119,8 +123,10 @@ public class Queen extends Piece{
 		}
 		//Vertical up
 		for (int i = 0; i<(Constants.BOARD_HEIGHT-1)-y; i++) {
-			if ((board[x][y+i].color != color)&&(((y+i)>=0))&&((y+i)<=7)) {
-				legalMoves.add(x+","+(y+i));
+			if (isInRange(x,y+i)) {
+				if ((board[x][y+i].color != color)) {
+					legalMoves.add(x+","+(y+i));
+				}
 			}
 			else {
 				break;
@@ -128,8 +134,10 @@ public class Queen extends Piece{
 		}
 		//Vertical down
 		for (int i = 0; i>-(Constants.BOARD_HEIGHT-1)-y; i--) {
-			if ((board[x][y+i].color != color)&&(((y+i)>=0))&&((y+i)<=7)) {
-				legalMoves.add(x+","+(y+i));
+			if (isInRange(x,y+i)) {
+				if ((board[x][y+i].color != color)) {
+					legalMoves.add(x+","+(y+i));
+				}
 			}
 			else {
 				break;
@@ -141,8 +149,10 @@ public class Queen extends Piece{
 		//Up and to the right
 		for (int i = 0; i<maxDistance; i++) {
 			//Sees if this move is in the board and is not moving on its own color
-			if ((board[x+i][y+i].color != color)&&(((x+i)>=0)&&((x+i)<=7))&&((y+i)>=0)&&((y+i)<=7)){
-				legalMoves.add((x+i)+","+(y+i));
+			if (isInRange(x+i,y+i)) {
+				if ((board[x+i][y+i].color != color)){
+					legalMoves.add((x+i)+","+(y+i));
+				}
 			}
 			else {
 				break;
@@ -151,8 +161,10 @@ public class Queen extends Piece{
 		//Up and to the left 
 		for (int i = 0; i<maxDistance; i++) {
 			//Sees if this move is in the board and is not moving on its own color
-			if ((board[x-i][y+i].color != color)&&(((x-i)>=0)&&((x-i)<=7))&&((y+i)>=0)&&((y+i)<=7)){
-				legalMoves.add((x-i)+","+(y+i));
+			if (isInRange(x-i,y+i)) {
+				if ((board[x-i][y+i].color != color)){
+					legalMoves.add((x-i)+","+(y+i));
+				}
 			}
 			else {
 				break;
@@ -161,8 +173,10 @@ public class Queen extends Piece{
 		//Down and to the right
 		for (int i = 0; i<maxDistance; i++) {
 			//Sees if this move is in the board and is not moving on its own color
-			if ((board[x+i][y-i].color != color)&&(((x+i)>=0)&&((x+i)<=7))&&((y-i)>=0)&&((y-i)<=7)){
-				legalMoves.add((x+i)+","+(y-i));
+			if (isInRange(x+i,y-i)) {
+				if ((board[x+i][y-i].color != color)){
+					legalMoves.add((x+i)+","+(y-i));
+				}
 			}
 			else {
 				break;
@@ -171,8 +185,10 @@ public class Queen extends Piece{
 		//Down and to the left
 		for (int i = 0; i<maxDistance; i++) {
 			//Sees if this move is in the board and is not moving on its own color
-			if ((board[x-i][y-i].color != color)&&(((x-i)>=0)&&((x-i)<=7))&&((y-i)>=0)&&((y-i)<=7)){
-				legalMoves.add((x-i)+","+(y-i));
+			if (isInRange(x-i,y-i)) {
+				if ((board[x-i][y-i].color != color)){
+					legalMoves.add((x-i)+","+(y-i));
+				}
 			}
 			else {
 				break;

@@ -101,8 +101,10 @@ public class Bishop extends Piece{
 		//Up and to the right
 		for (int i = 0; i<maxDistance; i++) {
 			//Sees if this move is in the board and is not moving on its own color
-			if ((board[x+i][y+i].color != color)&&(((x+i)>=0)&&((x+i)<=7))&&((y+i)>=0)&&((y+i)<=7)){
-				legalMoves.add((x+i)+","+(y+i));
+			if (isInRange(x+i,y+i)) {
+				if ((board[x+i][y+i].color != color)){
+					legalMoves.add((x+i)+","+(y+i));
+				}
 			}
 			else {
 				break;
@@ -111,8 +113,10 @@ public class Bishop extends Piece{
 		//Up and to the left 
 		for (int i = 0; i<maxDistance; i++) {
 			//Sees if this move is in the board and is not moving on its own color
-			if ((board[x-i][y+i].color != color)&&(((x-i)>=0)&&((x-i)<=7))&&((y+i)>=0)&&((y+i)<=7)){
-				legalMoves.add((x-i)+","+(y+i));
+			if (isInRange(x-i,y+i)) {
+				if ((board[x-i][y+i].color != color)){
+					legalMoves.add((x-i)+","+(y+i));
+				}
 			}
 			else {
 				break;
@@ -121,8 +125,10 @@ public class Bishop extends Piece{
 		//Down and to the right
 		for (int i = 0; i<maxDistance; i++) {
 			//Sees if this move is in the board and is not moving on its own color
-			if ((board[x+i][y-i].color != color)&&(((x+i)>=0)&&((x+i)<=7))&&((y-i)>=0)&&((y-i)<=7)){
-				legalMoves.add((x+i)+","+(y-i));
+			if (isInRange(x+i,y-i)) {
+				if ((board[x+i][y-i].color != color)){
+					legalMoves.add((x+i)+","+(y-i));
+				}
 			}
 			else {
 				break;
@@ -131,8 +137,10 @@ public class Bishop extends Piece{
 		//Down and to the left
 		for (int i = 0; i<maxDistance; i++) {
 			//Sees if this move is in the board and is not moving on its own color
-			if ((board[x-i][y-i].color != color)&&(((x-i)>=0)&&((x-i)<=7))&&((y-i)>=0)&&((y-i)<=7)){
-				legalMoves.add((x-i)+","+(y-i));
+			if (isInRange(x-i,y-i)) {
+				if ((board[x-i][y-i].color != color)){
+					legalMoves.add((x-i)+","+(y-i));
+				}
 			}
 			else {
 				break;
