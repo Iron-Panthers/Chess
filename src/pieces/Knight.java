@@ -80,43 +80,43 @@ public class Knight extends Piece{
 		int j = Constants.KNIGHT_MIN_MOVEMENT; //Min change in a value for a knight
 		// TODO Auto-generated method stub
 		if (isInRange(x+i,y+j)) {
-			if (!(board[x+i][y+j].toString().equals(toString()))) { //If opposite color, it can take the piece
+			if (isBlank(x+i,y+j)||canMove(x+i,y+j)) {
 				legalMoves.add((x+i)+","+(y+j));
 			}
 		}
 		if (isInRange(x+i,y-j)) {
-			if (!(board[x+i][y-j].toString().equals(toString()))) { //If opposite color, it can take the piece
+			if (isBlank(x+i,y-j)||canMove(x+i,y-j)) {
 				legalMoves.add((x+i)+","+(y-j));
 			}
 		}
 		if (isInRange(x-i,y+j)) {
-			if ((!(board[x-i][y+j].toString().equals(toString())))) { //If opposite color, it can take the piece
+			if (isBlank(x-i,y+j)||canMove(x-i,y+j)) {
 				legalMoves.add((x-i)+","+(y+j));
 			}
 		}
 		if (isInRange(x-i,y-j)) {
-			if (!(board[x-i][y-j].toString().equals(toString()))) { //If opposite color, it can take the piece
+			if (isBlank(x-i,y-j)||canMove(x-i,y-j)) {
 				legalMoves.add((x-i)+","+(y-j));
 			}
 		}
 		//Up/down two over one
 		if (isInRange(x+j,y+i)) {
-			if (!(board[x+j][y+i].toString().equals(toString()))) { //If opposite color, it can take the piece
+			if (isBlank(x+j,y+i)||canMove(x+j,y+i)) {
 				legalMoves.add((x+j)+","+(y+i));
 			}
 		}
 		if (isInRange(x-j,y+i)) {
-			if (!(board[x-j][y+i].toString().equals(toString()))) { //If opposite color, it can take the piece
+			if (isBlank(x-j,y+i)||canMove(x-j,y+i)) {
 				legalMoves.add((x-j)+","+(y+i));
 			}
 		}
 		if (isInRange(x+j,y-i)) {
-			if (!(board[x+j][y-i].toString().equals(toString()))) { //If opposite color, it can take the piece
+			if (isBlank(x+j,y-i)||canMove(x+j,y-i)) {
 				legalMoves.add((x+j)+","+(y-i));
 			}
 		}
 		if (isInRange(x-j,y-i)) {
-			if (!(board[x-j][y-i].toString().equals(toString()))) { //If opposite color, it can take the piece
+			if (isBlank(x-j,y-i)||canMove(x-j,y-i)) {
 				legalMoves.add((x-j)+","+(y-i));
 			}
 		}
@@ -124,5 +124,52 @@ public class Knight extends Piece{
 //		Str.substring(0,1); //-> 1  (Left of zero spot, left of one spot, 1)
 //		Str.substring(2,3) //-> 2 (Left of two spot, left of three spot, 2)
 		return legalMoves;
+	}
+	public boolean isBlank(int x, int y) {
+		return (board[x][y].toString().equals("X"));
+	}
+	public boolean isFriendly(int x, int y) {
+		String enemyType = board[x][y].toString();
+		//If not this type, not blank
+		if (isBlank(x,y)) {
+			return false;
+		}
+		if (!(enemyType.equals(toString()))){
+			//If white
+			if (toString().equals("R")) {
+				if (enemyType.equals("r")) {
+					return false;
+				}
+			}
+			//If black
+			if (toString().equals("r")) {
+				if (enemyType.equals("R")) {
+					return false;
+				}
+			}	
+		}
+		//if this is lower case:
+		if (toString().equals(toString().toLowerCase())) {
+			//If enemy is lower case
+			if (enemyType.equals(enemyType.toLowerCase())) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		//If this is upper case
+		else {
+			//If enemy is upper case
+			if (enemyType.equals(enemyType.toUpperCase())) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+	}
+	public boolean canMove(int x, int y) {
+		return isFriendly(x,y);
 	}
 }
