@@ -42,9 +42,10 @@ public class Player {
 				}
 				else {
 					Main.board[x][y].checkMove(x, y, moveX, moveY, Main.board);
+					isChoosing = false;
+					break;
 				}
 			}
-			isChoosing = false;
 		}
 	}
 	public void checkTurn() {

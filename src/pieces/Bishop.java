@@ -146,4 +146,35 @@ public class Bishop extends Piece{
 		}
 		return legalMoves;
 	}
+	public boolean isFriendly(int x, int y) {
+		String enemyType = board[x][y].toString();
+		if (!(enemyType.equals(toString()))){
+			//If white
+			if (toString().equals("B")) {
+				if (enemyType.equals("b")) {
+					return false;
+				}
+			}
+			//If black
+			if (toString().equals("b")) {
+				if (enemyType.equals("B")) {
+					return false;
+				}
+			}	
+		}
+		//Is friendly
+		return true;
+	}
+	public int canMove(int x, int y) {
+		if (board[x][y].toString().equals(toString())) {
+			//Friendly
+			return 1;
+		}
+		if (!isFriendly(x,y)) {
+			//Can take
+			return -1;
+		}
+		//Can take
+		return 0;
+	}
 }

@@ -81,10 +81,17 @@ public class Rook extends Piece{
 		//Horizontal to the right
 		for (int i = 0; i<(Constants.BOARD_LENGTH-1)-x; i++) {
 			if (isInRange(x+i,y)) {
-				if (!(board[x+i][y].toString().equals(toString()))){
+				//Blank
+				if (isBlank(x+i,y)) {
 					legalMoves.add((x+i)+","+y);
 				}
+				//If not friendly
+				else if (!canMove(x+i,y)) {
+					legalMoves.add((x+i)+","+y);
+					break;
+				}
 			}
+			//It will stop once it goes out of bounds or by a friendly piece or through an enemy one
 			else {
 				break;
 			}
@@ -92,8 +99,14 @@ public class Rook extends Piece{
 		//Horizontal to the left
 		for (int i = 0; i>-(Constants.BOARD_HEIGHT-1)-x; i--) {
 			if (isInRange(x+i,y)) {
-				if (!(board[x+i][y].toString().equals(toString()))) {
+				//Blank
+				if (isBlank(x+i,y)) {
 					legalMoves.add((x+i)+","+y);
+				}
+				//If not friendly
+				else if (!canMove(x+i,y)) {
+					legalMoves.add((x+i)+","+y);
+					break;
 				}
 			}
 			else {
@@ -103,8 +116,13 @@ public class Rook extends Piece{
 		//Vertical up
 		for (int i = 0; i<(Constants.BOARD_HEIGHT-1)-y; i++) {
 			if (isInRange(x,y+i)) {
-				if (!(board[x][y+i].toString().equals(toString()))) {
+				if (isBlank(x,y+i)) {
 					legalMoves.add(x+","+(y+i));
+				}
+				//If not friendly
+				else if (!canMove(x,y+i)) {
+					legalMoves.add(x+","+(y+i));
+					break;
 				}
 			}
 			else {
@@ -114,8 +132,14 @@ public class Rook extends Piece{
 		//Vertical down
 		for (int i = 0; i>-(Constants.BOARD_HEIGHT-1)-y; i--) {
 			if (isInRange(x,y+i)) {
-				if (!(board[x][y+i].toString().equals(toString()))) {
+				//If blank
+				if (isBlank(x,y+i)) {
 					legalMoves.add(x+","+(y+i));
+				}
+				//If not friendly
+				else if (!canMove(x,y+i)) {
+					legalMoves.add(x+","+(y+i));
+					break;
 				}
 			}
 			else {
@@ -123,5 +147,52 @@ public class Rook extends Piece{
 			}
 		}
 		return legalMoves;
+	}
+	public boolean isBlank(int x, int y) {
+		return (board[x][y].toString().equals("X"));
+	}
+	public boolean isFriendly(int x, int y) {
+		String enemyType = board[x][y].toString();
+		//If not this type, not blank
+		if (isBlank(x,y)) {
+			return false;
+		}
+		if (!(enemyType.equals(toString()))){
+			//If white
+			if (toString().equals("R")) {
+				if (enemyType.equals("r")) {
+					return false;
+				}
+			}
+			//If black
+			if (toString().equals("r")) {
+				if (enemyType.equals("R")) {
+					return false;
+				}
+			}	
+		}
+		//if this is lower case:
+		if (toString().equals(toString().toLowerCase())) {
+			//If enemy is lower case
+			if (enemyType.equals(enemyType.toLowerCase())) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		//If this is upper case
+		else {
+			//If enemy is upper case
+			if (enemyType.equals(enemyType.toUpperCase())) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+	}
+	public boolean canMove(int x, int y) {
+		return isFriendly(x,y);
 	}
 }
