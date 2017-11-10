@@ -40,11 +40,9 @@ public class King extends Piece{
 //		System.out.println(color);
 		if (isInRange(moveX,moveY)) {
 			if (board[x][y].toString().equals(toString())) {
-				if (board[x][y].color==color) { //Checks if player owns the piece
-					ArrayList<String> legalMoves = legalMoves(x,y);
-					if(movePiece(legalMoves,x,y,moveX,moveY)) {
-						return true;
-					}
+				ArrayList<String> legalMoves = legalMoves(x,y);
+				if(movePiece(legalMoves,x,y,moveX,moveY)) {
+					return true;
 				}
 				else {
 					System.out.println("That is not your piece");
