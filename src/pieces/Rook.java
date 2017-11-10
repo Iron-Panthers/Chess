@@ -81,7 +81,7 @@ public class Rook extends Piece{
 		//Horizontal to the right
 		for (int i = 0; i<(Constants.BOARD_LENGTH-1)-x; i++) {
 			if (isInRange(x+i,y)) {
-				if (board[x+i][y].color != color){
+				if (!(board[x+i][y].toString().equals(toString()))){
 					legalMoves.add((x+i)+","+y);
 				}
 			}
@@ -92,7 +92,7 @@ public class Rook extends Piece{
 		//Horizontal to the left
 		for (int i = 0; i>-(Constants.BOARD_HEIGHT-1)-x; i--) {
 			if (isInRange(x+i,y)) {
-				if ((board[x+i][y].color != color)) {
+				if (!(board[x+i][y].toString().equals(toString()))) {
 					legalMoves.add((x+i)+","+y);
 				}
 			}
@@ -103,7 +103,7 @@ public class Rook extends Piece{
 		//Vertical up
 		for (int i = 0; i<(Constants.BOARD_HEIGHT-1)-y; i++) {
 			if (isInRange(x,y+i)) {
-				if ((board[x][y+i].color != color)) {
+				if (!(board[x][y+i].toString().equals(toString()))) {
 					legalMoves.add(x+","+(y+i));
 				}
 			}
@@ -114,7 +114,7 @@ public class Rook extends Piece{
 		//Vertical down
 		for (int i = 0; i>-(Constants.BOARD_HEIGHT-1)-y; i--) {
 			if (isInRange(x,y+i)) {
-				if ((board[x][y+i].color != color)) {
+				if (!(board[x][y+i].toString().equals(toString()))) {
 					legalMoves.add(x+","+(y+i));
 				}
 			}

@@ -81,24 +81,24 @@ public class Knight extends Piece{
 		// TODO Auto-generated method stub
 		if ((x+i)<=7 && (x+i)>=0) { //X is in the range when 2 is added
 			if ((y+j)<=7 && (y+j)>=0) { //Y is in range when 2 is added
-				if (board[x+i][y+j].color != color) { //If opposite color, it can take the piece
+				if (!(board[x+i][y+j].toString().equals(toString()))) { //If opposite color, it can take the piece
 					legalMoves.add((x+i)+","+(y+j));
 				}
 			}
 			if ((y-j)<=7 && (y-j)>=0) {
-				if (board[x-i][y-j].color != color) { //If opposite color, it can take the piece
+				if (!(board[x-i][y-j].toString().equals(toString()))) { //If opposite color, it can take the piece
 					legalMoves.add((x-i)+","+(y-j));
 				}
 			}
 		}
 		if ((x-i)<=7 && (x-i)>=0) { //X is in range when 2 is subtracted
 			if ((y+j)<=7 && (y+j)>=0) { //Y is in range when 2 is added
-				if (board[x-i][y+j].color != color) { //If opposite color, it can take the piece
+				if ((!(board[x-i][y+j].toString().equals(toString())))) { //If opposite color, it can take the piece
 					legalMoves.add((x-i)+","+(y+j));
 				}
 			}
 			if ((y-j)<=7 && (y-j)>=0) {
-				if (board[x-i][y-j].color != color) { //If opposite color, it can take the piece
+				if (!(board[x-i][y-j].toString().equals(toString()))) { //If opposite color, it can take the piece
 					legalMoves.add((x-i)+","+(y-j));
 				}
 			}
@@ -109,25 +109,25 @@ public class Knight extends Piece{
 //				System.out.println("Should work");
 //				System.out.println("This is "+color);
 //				System.out.println(board[x+j][y+i].toString());
-				if (board[x+j][y+i].color != color) { //If opposite color, it can take the piece
-					legalMoves.add((y+i)+","+(x+j));
+				if (!(board[x+j][y+i].toString().equals(toString()))) { //If opposite color, it can take the piece
+					legalMoves.add((x+j)+","+(y+i));
 				}
 			}
 			if ((x-j)<=7 && (x-j)<=0) {
-				if (board[x-j][y+i].color != color) { //If opposite color, it can take the piece
-					legalMoves.add((y+i)+","+(x-j));
+				if (!(board[x-j][y+i].toString().equals(toString()))) { //If opposite color, it can take the piece
+					legalMoves.add((x-j)+","+(y+i));
 				}
 			}
 		}
 		if ((y-i)<=7 && (y-i)>=0) {
 			if ((x+j)<=7 && (x+j)>=0) {
-				if (board[x+j][y-1].color != color) { //If opposite color, it can take the piece
-					legalMoves.add((y-i)+","+(x+j));
+				if (!(board[x+j][y-i].toString().equals(toString()))) { //If opposite color, it can take the piece
+					legalMoves.add((x+j)+","+(y-i));
 				}
 			}
 			if ((x-j)<=7 && (x-j)<=0) {
-				if (board[x-j][y-i].color != color) { //If opposite color, it can take the piece
-					legalMoves.add((y-i)+","+(x-j));
+				if (!(board[x-j][y-i].toString().equals(toString()))) { //If opposite color, it can take the piece
+					legalMoves.add((x-j)+","+(y-i));
 				}
 			}
 		}

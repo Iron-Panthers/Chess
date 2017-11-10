@@ -100,7 +100,7 @@ public class Bishop extends Piece{
 		for (int i = 0; i<maxDistance; i++) {
 			//Sees if this move is in the board and is not moving on its own color
 			if (isInRange(x+i,y+i)) {
-				if ((board[x+i][y+i].color != color)){
+				if (!(board[x+i][y+i].toString().equals(toString()))){
 					legalMoves.add((x+i)+","+(y+i));
 				}
 			}
@@ -112,7 +112,7 @@ public class Bishop extends Piece{
 		for (int i = 0; i<maxDistance; i++) {
 			//Sees if this move is in the board and is not moving on its own color
 			if (isInRange(x-i,y+i)) {
-				if ((board[x-i][y+i].color != color)){
+				if (!(board[x-i][y+i].toString().equals(toString()))){
 					legalMoves.add((x-i)+","+(y+i));
 				}
 			}
@@ -124,7 +124,7 @@ public class Bishop extends Piece{
 		for (int i = 0; i<maxDistance; i++) {
 			//Sees if this move is in the board and is not moving on its own color
 			if (isInRange(x+i,y-i)) {
-				if ((board[x+i][y-i].color != color)){
+				if (!(board[x+i][y-i].toString().equals(toString()))){
 					legalMoves.add((x+i)+","+(y-i));
 				}
 			}
@@ -136,7 +136,7 @@ public class Bishop extends Piece{
 		for (int i = 0; i<maxDistance; i++) {
 			//Sees if this move is in the board and is not moving on its own color
 			if (isInRange(x-i,y-i)) {
-				if ((board[x-i][y-i].color != color)){
+				if (!(board[x-i][y-i].toString().equals(toString()))){
 					legalMoves.add((x-i)+","+(y-i));
 				}
 			}
