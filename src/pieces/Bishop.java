@@ -100,8 +100,14 @@ public class Bishop extends Piece{
 		for (int i = 0; i<maxDistance; i++) {
 			//Sees if this move is in the board and is not moving on its own color
 			if (isInRange(x+i,y+i)) {
-				if (!(board[x+i][y+i].toString().equals(toString()))){
+				//If blank
+				if (isBlank(x+i,y+i)) {
 					legalMoves.add((x+i)+","+(y+i));
+				}
+				//If not friendly
+				else if (canMove(x+i,y+i)) {
+					legalMoves.add((x+i)+","+(y+i));
+					break;
 				}
 			}
 			else {
@@ -112,8 +118,14 @@ public class Bishop extends Piece{
 		for (int i = 0; i<maxDistance; i++) {
 			//Sees if this move is in the board and is not moving on its own color
 			if (isInRange(x-i,y+i)) {
-				if (!(board[x-i][y+i].toString().equals(toString()))){
+				//If blank
+				if (isBlank(x-i,y+i)) {
 					legalMoves.add((x-i)+","+(y+i));
+				}
+				//If not friendly
+				else if (canMove(x-i,y+i)) {
+					legalMoves.add((x-i)+","+(y+i));
+					break;
 				}
 			}
 			else {
@@ -124,8 +136,14 @@ public class Bishop extends Piece{
 		for (int i = 0; i<maxDistance; i++) {
 			//Sees if this move is in the board and is not moving on its own color
 			if (isInRange(x+i,y-i)) {
-				if (!(board[x+i][y-i].toString().equals(toString()))){
+				//If blank
+				if (isBlank(x+i,y-i)) {
 					legalMoves.add((x+i)+","+(y-i));
+				}
+				//If not friendly
+				else if (canMove(x+i,y-i)) {
+					legalMoves.add((x+i)+","+(y-i));
+					break;
 				}
 			}
 			else {
@@ -136,8 +154,14 @@ public class Bishop extends Piece{
 		for (int i = 0; i<maxDistance; i++) {
 			//Sees if this move is in the board and is not moving on its own color
 			if (isInRange(x-i,y-i)) {
-				if (!(board[x-i][y-i].toString().equals(toString()))){
+				//If blank
+				if (isBlank(x-i,y-i)) {
 					legalMoves.add((x-i)+","+(y-i));
+				}
+				//If not friendly
+				else if (canMove(x-i,y-i)) {
+					legalMoves.add((x-i)+","+(y-i));
+					break;
 				}
 			}
 			else {
@@ -146,8 +170,16 @@ public class Bishop extends Piece{
 		}
 		return legalMoves;
 	}
+	public boolean isBlank(int x, int y) {
+		return (board[x][y].toString().equals("X"));
+	}
 	public boolean isFriendly(int x, int y) {
 		String enemyType = board[x][y].toString();
+		//If not this type, not blank
+		if (isBlank(x,y)) {
+			return false;
+		}
+		//If it is this type
 		if (!(enemyType.equals(toString()))){
 			//If white
 			if (toString().equals("B")) {
@@ -162,19 +194,28 @@ public class Bishop extends Piece{
 				}
 			}	
 		}
-		//Is friendly
-		return true;
+		//if this is lower case:
+		if (toString().equals(toString().toLowerCase())) {
+			//If enemy is lower case
+			if (enemyType.equals(enemyType.toLowerCase())) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		//If this is upper case
+		else {
+			//If enemy is upper case
+			if (enemyType.equals(enemyType.toUpperCase())) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
 	}
-	public int canMove(int x, int y) {
-		if (board[x][y].toString().equals(toString())) {
-			//Friendly
-			return 1;
-		}
-		if (!isFriendly(x,y)) {
-			//Can take
-			return -1;
-		}
-		//Can take
-		return 0;
+	public boolean canMove(int x, int y) {
+		return isFriendly(x,y);
 	}
 }
