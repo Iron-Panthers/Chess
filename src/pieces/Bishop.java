@@ -2,6 +2,7 @@ package pieces;
 
 import java.util.ArrayList;
 
+import board.Constants;
 import board.Main;
 import board.Player;
 
@@ -52,10 +53,68 @@ public class Bishop extends Piece{
 		return type.toString();
 		// TODO Auto-generated method stub
 	}
+	public int getMaxDistance(int x, int y) {
+		int maxDistance;
+		int maxX = (Constants.BOARD_LENGTH-1)-x;
+		int maxY = (Constants.BOARD_HEIGHT-1)-y;
+		if (maxX>maxY) {
+			maxDistance = maxY;
+			return maxDistance;
+		}
+		else if (maxY>maxX) {
+			maxDistance = maxX;
+			return maxDistance;
+		}
+		else { //If they are the same
+			maxDistance = maxX;
+			return maxDistance;
+		}
+	}
 	@Override
 	public ArrayList<String> legalMoves(int x, int y) {
 		ArrayList<String> legalMoves = new ArrayList<String>();
-		// TODO Auto-generated method stub
+		//Sees the shortest distance to move, picks that
+		int maxDistance = getMaxDistance(x,y);
+		//Up and to the right
+		for (int i = 0; i<maxDistance; i++) {
+			//Sees if this move is in the board and is not moving on its own color
+			if ((Main.board[x+i][y+i].color != color)&&(((x+i)>=0)&&((x+i)<=7))&&((y+i)>=0)&&((y+i)<=7)){
+				legalMoves.add((x+i)+","+(y+i));
+			}
+			else {
+				break;
+			}
+		}
+		//Up and to the left 
+		for (int i = 0; i<maxDistance; i++) {
+			//Sees if this move is in the board and is not moving on its own color
+			if ((Main.board[x-i][y+i].color != color)&&(((x-i)>=0)&&((x-i)<=7))&&((y+i)>=0)&&((y+i)<=7)){
+				legalMoves.add((x-i)+","+(y+i));
+			}
+			else {
+				break;
+			}
+		}
+		//Down and to the right
+		for (int i = 0; i<maxDistance; i++) {
+			//Sees if this move is in the board and is not moving on its own color
+			if ((Main.board[x+i][y-i].color != color)&&(((x+i)>=0)&&((x+i)<=7))&&((y-i)>=0)&&((y-i)<=7)){
+				legalMoves.add((x+i)+","+(y-i));
+			}
+			else {
+				break;
+			}
+		}
+		//Down and to the left
+		for (int i = 0; i<maxDistance; i++) {
+			//Sees if this move is in the board and is not moving on its own color
+			if ((Main.board[x-i][y-i].color != color)&&(((x-i)>=0)&&((x-i)<=7))&&((y-i)>=0)&&((y-i)<=7)){
+				legalMoves.add((x-i)+","+(y-i));
+			}
+			else {
+				break;
+			}
+		}
 		return legalMoves;
 	}
 }
