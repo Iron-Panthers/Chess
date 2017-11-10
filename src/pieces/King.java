@@ -220,6 +220,6 @@ public class King extends Piece{
 		}
 	}
 	public boolean canMove(int x, int y) {
-		return isFriendly(x,y);
+		return !isFriendly(x,y);
 	}
 }
