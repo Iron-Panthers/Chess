@@ -97,7 +97,7 @@ public class Bishop extends Piece{
 		//Sees the shortest distance to move, picks that
 		int maxDistance = getMaxDistance(x,y);
 		//Up and to the right
-		for (int i = 0; i<maxDistance; i++) {
+		for (int i = 0; i<=maxDistance; i++) {
 			//Sees if this move is in the board and is not moving on its own color
 			if (isInRange(x+i,y+i)) {
 				//If blank
@@ -115,7 +115,7 @@ public class Bishop extends Piece{
 			}
 		}
 		//Up and to the left 
-		for (int i = 0; i<maxDistance; i++) {
+		for (int i = 0; i<=maxDistance; i++) {
 			//Sees if this move is in the board and is not moving on its own color
 			if (isInRange(x-i,y+i)) {
 				//If blank
@@ -133,7 +133,7 @@ public class Bishop extends Piece{
 			}
 		}
 		//Down and to the right
-		for (int i = 0; i<maxDistance; i++) {
+		for (int i = 0; i<=maxDistance; i++) {
 			//Sees if this move is in the board and is not moving on its own color
 			if (isInRange(x+i,y-i)) {
 				//If blank
@@ -151,7 +151,7 @@ public class Bishop extends Piece{
 			}
 		}
 		//Down and to the left
-		for (int i = 0; i<maxDistance; i++) {
+		for (int i = 0; i<=maxDistance; i++) {
 			//Sees if this move is in the board and is not moving on its own color
 			if (isInRange(x-i,y-i)) {
 				//If blank

@@ -81,7 +81,7 @@ public class King extends Piece{
 		int maxDistance = Constants.KING_MAX_MOVEMENT;
 		//Rook Moves
 		//Horizontal to the right
-		for (int i = 0; i<maxDistance; i++) {
+		for (int i = 0; i<=maxDistance; i++) {
 			if (isInRange(x+i,y)) {
 				if (!(board[x+i][y].toString().equals(toString()))){
 					legalMoves.add((x+i)+","+y);
@@ -92,7 +92,7 @@ public class King extends Piece{
 			}
 		}
 		//Horizontal to the left
-		for (int i = 0; i>maxDistance; i--) {
+		for (int i = 0; i>=maxDistance; i--) {
 			if (isInRange(x+i,y)) {
 				if (!(board[x+i][y].toString().equals(toString()))) {
 					legalMoves.add((x+i)+","+y);
@@ -103,7 +103,7 @@ public class King extends Piece{
 			}
 		}
 		//Vertical up
-		for (int i = 0; i<maxDistance; i++) {
+		for (int i = 0; i<=maxDistance; i++) {
 			if (isInRange(x,y+i)) {
 				if (!(board[x][y+i].toString().equals(toString()))) {
 					legalMoves.add(x+","+(y+i));
@@ -114,7 +114,7 @@ public class King extends Piece{
 			}
 		}
 		//Vertical down
-		for (int i = 0; i>maxDistance; i--) {
+		for (int i = 0; i>=maxDistance; i--) {
 			if (isInRange(x,y+i)) {
 				if (!(board[x][y+i].toString().equals(toString()))) {
 					legalMoves.add(x+","+(y+i));
@@ -126,7 +126,7 @@ public class King extends Piece{
 		}
 		//Bishop moves
 		//Up and to the right
-		for (int i = 0; i<maxDistance; i++) {
+		for (int i = 0; i<=maxDistance; i++) {
 			//Sees if this move is in the board and is not moving on its own color
 			if (isInRange(x+i,y+i)) {
 				if (!(board[x+i][y+i].toString().equals(toString()))){
@@ -138,7 +138,7 @@ public class King extends Piece{
 			}
 		}
 		//Up and to the left 
-		for (int i = 0; i<maxDistance; i++) {
+		for (int i = 0; i<=maxDistance; i++) {
 			//Sees if this move is in the board and is not moving on its own color
 			if (isInRange(x-i,y+i)) {
 				if (!(board[x-i][y+i].toString().equals(toString()))){
@@ -150,7 +150,7 @@ public class King extends Piece{
 			}
 		}
 		//Down and to the right
-		for (int i = 0; i<maxDistance; i++) {
+		for (int i = 0; i<=maxDistance; i++) {
 			//Sees if this move is in the board and is not moving on its own color
 			if (isInRange(x+i,y-i)) {
 				if (!(board[x+i][y-i].toString().equals(toString()))){
@@ -162,7 +162,7 @@ public class King extends Piece{
 			}
 		}
 		//Down and to the left
-		for (int i = 0; i<maxDistance; i++) {
+		for (int i = 0; i<=maxDistance; i++) {
 			//Sees if this move is in the board and is not moving on its own color
 			if (isInRange(x-i,y-i)) {
 				if (!(board[x-i][y-i].toString().equals(toString()))){

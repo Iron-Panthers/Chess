@@ -98,7 +98,7 @@ public class Queen extends Piece{
 		//Rook Moves
 		ArrayList<String> legalMoves = new ArrayList<String>();
 		//Horizontal to the right
-		for (int i = 0; i<(Constants.BOARD_LENGTH-1)-x; i++) {
+		for (int i = 0; i<=(Constants.BOARD_LENGTH-1)-x; i++) {
 			if (isInRange(x+i,y)) {
 				//Blank
 				if (isBlank(x+i,y)) {
@@ -116,7 +116,7 @@ public class Queen extends Piece{
 			}
 		}
 		//Horizontal to the left
-		for (int i = 0; i>-(Constants.BOARD_HEIGHT-1)-x; i--) {
+		for (int i = 0; i>=-(Constants.BOARD_HEIGHT-1)-x; i--) {
 			if (isInRange(x+i,y)) {
 				//Blank
 				if (isBlank(x+i,y)) {
@@ -133,7 +133,7 @@ public class Queen extends Piece{
 			}
 		}
 		//Vertical up
-		for (int i = 0; i<(Constants.BOARD_HEIGHT-1)-y; i++) {
+		for (int i = 0; i<=(Constants.BOARD_HEIGHT-1)-y; i++) {
 			if (isInRange(x,y+i)) {
 				if (isBlank(x,y+i)) {
 					legalMoves.add(x+","+(y+i));
@@ -149,7 +149,7 @@ public class Queen extends Piece{
 			}
 		}
 		//Vertical down
-		for (int i = 0; i>-(Constants.BOARD_HEIGHT-1)-y; i--) {
+		for (int i = 0; i>=-(Constants.BOARD_HEIGHT-1)-y; i--) {
 			if (isInRange(x,y+i)) {
 				//If blank
 				if (isBlank(x,y+i)) {
@@ -169,7 +169,7 @@ public class Queen extends Piece{
 		//Sees the shortest distance to move, picks that
 		int maxDistance = getMaxDistance(x,y);
 		//Up and to the right
-		for (int i = 0; i<maxDistance; i++) {
+		for (int i = 0; i<=maxDistance; i++) {
 			//Sees if this move is in the board and is not moving on its own color
 			if (isInRange(x+i,y+i)) {
 				//If blank
@@ -187,7 +187,7 @@ public class Queen extends Piece{
 			}
 		}
 		//Up and to the left 
-		for (int i = 0; i<maxDistance; i++) {
+		for (int i = 0; i<=maxDistance; i++) {
 			//Sees if this move is in the board and is not moving on its own color
 			if (isInRange(x-i,y+i)) {
 				//If blank
@@ -205,7 +205,7 @@ public class Queen extends Piece{
 			}
 		}
 		//Down and to the right
-		for (int i = 0; i<maxDistance; i++) {
+		for (int i = 0; i<=maxDistance; i++) {
 			//Sees if this move is in the board and is not moving on its own color
 			if (isInRange(x+i,y-i)) {
 				//If blank
@@ -223,7 +223,7 @@ public class Queen extends Piece{
 			}
 		}
 		//Down and to the left
-		for (int i = 0; i<maxDistance; i++) {
+		for (int i = 0; i<=maxDistance; i++) {
 			//Sees if this move is in the board and is not moving on its own color
 			if (isInRange(x-i,y-i)) {
 				//If blank
