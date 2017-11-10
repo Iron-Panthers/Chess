@@ -95,9 +95,30 @@ public class Pawn extends Piece{
 		return board[x][y].toString().equals("X");
 	}
 	public boolean canCapture(int moveX, int moveY) {
-		if (((moveY>=0)&&(moveY<=7))&&((moveX>=0)&&(moveX<=7)))
-		if (!(board[moveX][moveY].toString().equals(toString()))) {
-			return true;
+		if (isInRange(moveX,moveY)) {
+			if (!isBlank(moveX,moveY)) {
+				String enemyType = board[moveX][moveY].toString();
+				//If lower case
+				if (enemyType.equals(enemyType.toLowerCase())) {
+					//If this is lower case, it is friendly
+					if (toString().equals(toString().toLowerCase())) {
+						return false;
+					}
+					else {
+						return true;
+					}
+				}
+				else {
+					//Enemy is upper case
+					//If this is lower case, it is friendly
+					if (toString().equals(toString().toLowerCase())) {
+						return true;
+					}
+					else {
+						return false;
+					}
+				}
+			}
 		}
 		return false;
 	}

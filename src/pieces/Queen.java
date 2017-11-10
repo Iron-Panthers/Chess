@@ -95,15 +95,22 @@ public class Queen extends Piece{
 	@Override
 	public ArrayList<String> legalMoves(int x, int y) {
 		// TODO Auto-generated method stub
-		ArrayList<String> legalMoves = new ArrayList<String>();
 		//Rook Moves
+		ArrayList<String> legalMoves = new ArrayList<String>();
 		//Horizontal to the right
 		for (int i = 0; i<(Constants.BOARD_LENGTH-1)-x; i++) {
 			if (isInRange(x+i,y)) {
-				if (!(board[x+i][y].toString().equals(toString()))){
+				//Blank
+				if (isBlank(x+i,y)) {
 					legalMoves.add((x+i)+","+y);
 				}
+				//If not friendly
+				else if (!canMove(x+i,y)) {
+					legalMoves.add((x+i)+","+y);
+					break;
+				}
 			}
+			//It will stop once it goes out of bounds or by a friendly piece or through an enemy one
 			else {
 				break;
 			}
@@ -111,8 +118,14 @@ public class Queen extends Piece{
 		//Horizontal to the left
 		for (int i = 0; i>-(Constants.BOARD_HEIGHT-1)-x; i--) {
 			if (isInRange(x+i,y)) {
-				if (!(board[x+i][y].toString().equals(toString()))) {
+				//Blank
+				if (isBlank(x+i,y)) {
 					legalMoves.add((x+i)+","+y);
+				}
+				//If not friendly
+				else if (!canMove(x+i,y)) {
+					legalMoves.add((x+i)+","+y);
+					break;
 				}
 			}
 			else {
@@ -122,8 +135,13 @@ public class Queen extends Piece{
 		//Vertical up
 		for (int i = 0; i<(Constants.BOARD_HEIGHT-1)-y; i++) {
 			if (isInRange(x,y+i)) {
-				if (!(board[x][y+i].toString().equals(toString()))) {
+				if (isBlank(x,y+i)) {
 					legalMoves.add(x+","+(y+i));
+				}
+				//If not friendly
+				else if (!canMove(x,y+i)) {
+					legalMoves.add(x+","+(y+i));
+					break;
 				}
 			}
 			else {
@@ -133,8 +151,14 @@ public class Queen extends Piece{
 		//Vertical down
 		for (int i = 0; i>-(Constants.BOARD_HEIGHT-1)-y; i--) {
 			if (isInRange(x,y+i)) {
-				if (!(board[x][y+i].toString().equals(toString()))) {
+				//If blank
+				if (isBlank(x,y+i)) {
 					legalMoves.add(x+","+(y+i));
+				}
+				//If not friendly
+				else if (!canMove(x,y+i)) {
+					legalMoves.add(x+","+(y+i));
+					break;
 				}
 			}
 			else {
@@ -148,8 +172,14 @@ public class Queen extends Piece{
 		for (int i = 0; i<maxDistance; i++) {
 			//Sees if this move is in the board and is not moving on its own color
 			if (isInRange(x+i,y+i)) {
-				if (!(board[x+i][y+i].toString().equals(toString()))){
+				//If blank
+				if (isBlank(x+i,y+i)) {
 					legalMoves.add((x+i)+","+(y+i));
+				}
+				//If not friendly
+				else if (canMove(x+i,y+i)) {
+					legalMoves.add((x+i)+","+(y+i));
+					break;
 				}
 			}
 			else {
@@ -160,8 +190,14 @@ public class Queen extends Piece{
 		for (int i = 0; i<maxDistance; i++) {
 			//Sees if this move is in the board and is not moving on its own color
 			if (isInRange(x-i,y+i)) {
-				if (!(board[x-i][y+i].toString().equals(toString()))){
+				//If blank
+				if (isBlank(x-i,y+i)) {
 					legalMoves.add((x-i)+","+(y+i));
+				}
+				//If not friendly
+				else if (canMove(x-i,y+i)) {
+					legalMoves.add((x-i)+","+(y+i));
+					break;
 				}
 			}
 			else {
@@ -172,8 +208,14 @@ public class Queen extends Piece{
 		for (int i = 0; i<maxDistance; i++) {
 			//Sees if this move is in the board and is not moving on its own color
 			if (isInRange(x+i,y-i)) {
-				if (!(board[x+i][y-i].toString().equals(toString()))){
+				//If blank
+				if (isBlank(x+i,y-i)) {
 					legalMoves.add((x+i)+","+(y-i));
+				}
+				//If not friendly
+				else if (canMove(x+i,y-i)) {
+					legalMoves.add((x+i)+","+(y-i));
+					break;
 				}
 			}
 			else {
@@ -184,8 +226,14 @@ public class Queen extends Piece{
 		for (int i = 0; i<maxDistance; i++) {
 			//Sees if this move is in the board and is not moving on its own color
 			if (isInRange(x-i,y-i)) {
-				if (!(board[x-i][y-i].toString().equals(toString()))){
+				//If blank
+				if (isBlank(x-i,y-i)) {
 					legalMoves.add((x-i)+","+(y-i));
+				}
+				//If not friendly
+				else if (canMove(x-i,y-i)) {
+					legalMoves.add((x-i)+","+(y-i));
+					break;
 				}
 			}
 			else {
@@ -205,14 +253,14 @@ public class Queen extends Piece{
 		}
 		if (!(enemyType.equals(toString()))){
 			//If white
-			if (toString().equals("R")) {
-				if (enemyType.equals("r")) {
+			if (toString().equals("Q")) {
+				if (enemyType.equals("q")) {
 					return false;
 				}
 			}
 			//If black
-			if (toString().equals("r")) {
-				if (enemyType.equals("R")) {
+			if (toString().equals("q")) {
+				if (enemyType.equals("Q")) {
 					return false;
 				}
 			}	

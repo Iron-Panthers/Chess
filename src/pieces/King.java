@@ -175,4 +175,51 @@ public class King extends Piece{
 		}
 		return legalMoves;
 	}
+	public boolean isBlank(int x, int y) {
+		return (board[x][y].toString().equals("X"));
+	}
+	public boolean isFriendly(int x, int y) {
+		String enemyType = board[x][y].toString();
+		//If not this type, not blank
+		if (isBlank(x,y)) {
+			return false;
+		}
+		if (!(enemyType.equals(toString()))){
+			//If white
+			if (toString().equals("K")) {
+				if (enemyType.equals("k")) {
+					return false;
+				}
+			}
+			//If black
+			if (toString().equals("k")) {
+				if (enemyType.equals("K")) {
+					return false;
+				}
+			}	
+		}
+		//if this is lower case:
+		if (toString().equals(toString().toLowerCase())) {
+			//If enemy is lower case
+			if (enemyType.equals(enemyType.toLowerCase())) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		//If this is upper case
+		else {
+			//If enemy is upper case
+			if (enemyType.equals(enemyType.toUpperCase())) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+	}
+	public boolean canMove(int x, int y) {
+		return isFriendly(x,y);
+	}
 }
