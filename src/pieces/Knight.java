@@ -85,8 +85,8 @@ public class Knight extends Piece{
 			}
 		}
 		if (isInRange(x+i,y-j)) {
-			if (!(board[x-i][y-j].toString().equals(toString()))) { //If opposite color, it can take the piece
-				legalMoves.add((x-i)+","+(y-j));
+			if (!(board[x+i][y-j].toString().equals(toString()))) { //If opposite color, it can take the piece
+				legalMoves.add((x+i)+","+(y-j));
 			}
 		}
 		if (isInRange(x-i,y+j)) {
