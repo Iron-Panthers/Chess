@@ -35,6 +35,12 @@ public class Bishop extends Piece{
 	@Override
 	public void movePiece(ArrayList<String> legalMoves, int x, int y, int moveX, int moveY) {
 		// TODO Auto-generated method stub
+		String playerMovement = moveX+","+moveY;
+		if (legalMoves.contains(playerMovement)) {
+			//Moves knight to new space, replaces empty space with a blank
+			Main.board[moveX][moveY] = Main.board[x][y]; 
+			Main.board[x][y] = Main.blank;
+		}
 	}
 
 	@Override
