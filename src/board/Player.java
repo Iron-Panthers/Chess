@@ -24,6 +24,7 @@ public class Player {
 		boolean isChoosing = true;
 		boolean hasAgreed = false;
 		while(isChoosing) {
+			//Sees if player agrees to a draw
 			while (!hasAgreed) {
 				System.out.println("Would you like to agree to a draw?");
 				if (input.nextLine().equalsIgnoreCase("yes")) {
@@ -53,6 +54,7 @@ public class Player {
 					break;
 				}
 				else {
+					//If they did not put themselves in check, move
 					Main.board[x][y].checkMove(x, y, moveX, moveY, Main.board);
 					isChoosing = false;
 					break;
