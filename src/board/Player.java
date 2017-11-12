@@ -93,11 +93,25 @@ public class Player {
 		int y = getKingY();
 		return allTarget(x,y);
 	}
+	public int getPieceColor(int x, int y, Piece[][] board) {
+		//Lower case, it is black
+		if (board[x][y].toString().equals(tempBoard[x][y].toString().toLowerCase())) {
+			return 1;
+		}
+		//X, blank
+		else if (board[x][y].toString().equals("X")){
+			return 2;
+		}
+		//Upper case, it is white
+		else {
+			return 0;
+		}
+	}
 	public boolean allTarget(int x, int y) {
 		Piece tempBoard[][] = Main.board;
 		for (int i = 0; i<Main.board.length; i++) {
 			for (int j = 0; j<Main.board.length; j++) {
-				if (tempBoard[j][i].color != color) {
+				if (getPieceColor(j,i,tempBoard) != color) {
 					tempBoard[j][i].checkMove(j, i, x, y,tempBoard); //Moves all pieces to king
 				}
 			}
