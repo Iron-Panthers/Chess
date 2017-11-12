@@ -95,7 +95,7 @@ public class Player {
 	}
 	public int getPieceColor(int x, int y, Piece[][] board) {
 		//Lower case, it is black
-		if (board[x][y].toString().equals(tempBoard[x][y].toString().toLowerCase())) {
+		if (board[x][y].toString().equals(board[x][y].toString().toLowerCase())) {
 			return 1;
 		}
 		//X, blank
