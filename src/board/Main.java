@@ -1,5 +1,6 @@
 package board;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import pieces.Bishop;
 import pieces.Blank;
@@ -33,7 +34,17 @@ public class Main {
 	public static Pawn pawn;
 	public static Blank blank;
 	
+	//Constructors
+	public static Scanner input;
+	
+	//Ints for game
+	public static int drawAgreement;
+	
 	public static void main(String[] args) {
+		input = new Scanner(System.in);
+		//Draw variables
+		drawAgreement = 0;
+		
 		//Board
 		//Letters for pieces with a number to differentiate will be placed at certain parts of the board
 		board = new Piece[Constants.BOARD_LENGTH][Constants.BOARD_HEIGHT]; //8 by 8, stops at 7
@@ -106,7 +117,15 @@ public class Main {
 				isChecked = checkForCheck();
 				if(!hasKing(nextPlayer)) {
 					gameOver(nextPlayer);
+					input.next();
 					break;
+				}
+				else if(!hasInsufficientMaterial()) {
+					draw();
+					break;
+				}
+				else if(drawAgreement>=2) {
+					draw();
 				}
 			}
 		}
@@ -124,6 +143,52 @@ public class Main {
 		//Each piece has a location
 		//Exceptions for collisions, if there is an enemy piece in the way it can be taken
 		//Check for check after each move, if an enemy piece can move to the king's square, then the defender must get out of check
+	}
+	public static void draw() {
+		System.out.println("It is a draw");
+		input.next();
+	}
+	public static int getPieceColor(Piece piece) {
+		if (piece.toString().equals(piece.toString().toLowerCase())) {
+			return 1;
+		}
+		return 0;
+	}
+	public static boolean hasInsufficientMaterial() {
+		ArrayList<Piece> blackPieces = new ArrayList<Piece>();
+		ArrayList<Piece> whitePieces = new ArrayList<Piece>();
+		for (int i = 0; i<Constants.BOARD_HEIGHT; i++) {
+			for (int j = 0; j<Constants.BOARD_LENGTH; j++) {
+				Piece testPiece = board[j][i];
+				if (getPieceColor(testPiece) == 0) {
+					whitePieces.add(testPiece);
+				}
+				else {
+					blackPieces.add(testPiece);
+				}
+			}
+		}
+		if (isInsufficient(whitePieces,blackPieces)) {
+			return false;
+		}
+		return true;
+	}
+	public static boolean isInsufficient(ArrayList<Piece> whitePieces, ArrayList<Piece> blackPieces) {
+		if (!whitePieces.contains(pawn)) {
+			//K v K
+			if (whitePieces.size()==1 && blackPieces.size()==1) {
+				if (whitePieces.get(0).toString().equals("K") && blackPieces.get(0).toString().equals("k")) {
+					return true;
+				}
+			}
+			//K & N v K
+			//K & B v K
+			//K & NN v K
+			//K & BB v K
+			//
+		}
+		
+		return false;
 	}
 	public static boolean hasKing(Player player) {
 		for (int i = 0; i<Constants.BOARD_HEIGHT; i++) {

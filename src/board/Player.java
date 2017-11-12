@@ -22,7 +22,19 @@ public class Player {
 		tempBoard = Main.board;
 //		System.out.println(color);
 		boolean isChoosing = true;
+		boolean hasAgreed = false;
 		while(isChoosing) {
+			while (!hasAgreed) {
+				System.out.println("Would you like to agree to a draw?");
+				if (input.nextLine().equalsIgnoreCase("yes")) {
+					Main.drawAgreement += 0; 
+					hasAgreed = true;
+				}
+				else if (input.nextLine().equalsIgnoreCase("no")) {
+					Main.drawAgreement = 0;
+					hasAgreed = true;
+				}
+			}
 			System.out.print("Where is the piece you would like to move, ");
 			if (color == 0) {
 				System.out.println("white?");
