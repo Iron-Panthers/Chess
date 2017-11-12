@@ -105,7 +105,7 @@ public class Queen extends Piece{
 					legalMoves.add((x+i)+","+y);
 				}
 				//If not friendly
-				else if (!canMove(x+i,y)) {
+				else if (canMove(x+i,y)) {
 					legalMoves.add((x+i)+","+y);
 					break;
 				}
@@ -123,7 +123,7 @@ public class Queen extends Piece{
 					legalMoves.add((x+i)+","+y);
 				}
 				//If not friendly
-				else if (!canMove(x+i,y)) {
+				else if (canMove(x+i,y)) {
 					legalMoves.add((x+i)+","+y);
 					break;
 				}
@@ -139,7 +139,7 @@ public class Queen extends Piece{
 					legalMoves.add(x+","+(y+i));
 				}
 				//If not friendly
-				else if (!canMove(x,y+i)) {
+				else if (canMove(x,y+i)) {
 					legalMoves.add(x+","+(y+i));
 					break;
 				}
@@ -156,7 +156,7 @@ public class Queen extends Piece{
 					legalMoves.add(x+","+(y+i));
 				}
 				//If not friendly
-				else if (!canMove(x,y+i)) {
+				else if (canMove(x,y+i)) {
 					legalMoves.add(x+","+(y+i));
 					break;
 				}
