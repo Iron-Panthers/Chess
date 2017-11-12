@@ -104,6 +104,10 @@ public class Main {
 					currentPlayer.turn();
 				}
 				isChecked = checkForCheck();
+				if(!hasKing(nextPlayer)) {
+					gameOver(nextPlayer);
+					break;
+				}
 			}
 		}
 		
@@ -120,6 +124,26 @@ public class Main {
 		//Each piece has a location
 		//Exceptions for collisions, if there is an enemy piece in the way it can be taken
 		//Check for check after each move, if an enemy piece can move to the king's square, then the defender must get out of check
+	}
+	public static boolean hasKing(Player player) {
+		for (int i = 0; i<Constants.BOARD_HEIGHT; i++) {
+			for (int j = 0; j<Constants.BOARD_LENGTH; j++) {
+				if (player.color == 0) {
+					if (board[j][i].toString().equals("K")) {
+						return true;
+					}
+				}
+				else {
+					if (board[j][i].toString().equals("k")) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	public static void gameOver(Player player) {
+		System.out.println("You lose, "+player);
 	}
 	public static boolean checkForCheck() {
 		return nextPlayer.isChecked();
