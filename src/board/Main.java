@@ -174,20 +174,122 @@ public class Main {
 		return true;
 	}
 	public static boolean isInsufficient(ArrayList<Piece> whitePieces, ArrayList<Piece> blackPieces) {
-		if (!whitePieces.contains(pawn)) {
-			//K v K
-			if (whitePieces.size()==1 && blackPieces.size()==1) {
-				if (whitePieces.get(0).toString().equals("K") && blackPieces.get(0).toString().equals("k")) {
+		boolean whitePiecesHasPawn = false;
+		boolean blackPiecesHasPawn = false;
+		//Finds white pawn
+		for (int i = 0; i<whitePieces.size()-1; i++) {
+			if (whitePieces.get(i).toString().equals("P")) {
+				whitePiecesHasPawn = true;
+				break;
+			}
+		}
+		//Finds black pawn
+		for (int i = 0; i<blackPieces.size()-1; i++) {
+			if (blackPieces.get(i).toString().equals("p")) {
+				blackPiecesHasPawn = true;
+				break;
+			}
+		}
+		if (!whitePiecesHasPawn) {
+			return getIsInsufficient(whitePieces,blackPieces);
+		}
+		else if (!blackPiecesHasPawn) {
+			return getIsInsufficient(whitePieces,blackPieces);
+		}
+		
+		return false;
+	}
+	public static boolean getIsInsufficient(ArrayList<Piece> whitePieces, ArrayList<Piece> blackPieces) {
+		//K v K
+		if (whitePieces.size()==1 && blackPieces.size()==1) {
+			if (whitePieces.get(0).toString().equals("K") && blackPieces.get(0).toString().equals("k")) {
+				return true;
+			}
+		}
+		//K & N v K
+		else if (whitePieces.size()==2 && blackPieces.size()==1) {
+			for (int i = 0; i<whitePieces.size()-1; i++) {
+				//Other has to be a king
+				if (whitePieces.get(i).toString().equals("N")) {
 					return true;
 				}
 			}
-			//K & N v K
-			//K & B v K
-			//K & NN v K
-			//K & BB v K
-			//
 		}
-		
+		else if (whitePieces.size()==1 && blackPieces.size()==2) {
+			for (int i = 0; i<blackPieces.size()-1; i++) {
+				//Other has to be a king
+				if (blackPieces.get(i).toString().equals("n")) {
+					return true;
+				}
+			}
+		}
+		//K & B v K
+		else if (whitePieces.size()==2 && blackPieces.size()==1) {
+			for (int i = 0; i<whitePieces.size()-1; i++) {
+				//Other has to be a king
+				if (whitePieces.get(i).toString().equals("B")) {
+					return true;
+				}
+			}
+		}
+		else if (whitePieces.size()==1 && blackPieces.size()==2) {
+			for (int i = 0; i<blackPieces.size()-1; i++) {
+				//Other has to be a king
+				if (blackPieces.get(i).toString().equals("b")) {
+					return true;
+				}
+			}
+		}
+		//K & NN v K
+		else if (whitePieces.size()==2 && blackPieces.size()==1) {
+			int knightNumber = 0;
+			for (int i = 0; i<whitePieces.size()-1; i++) {
+				//Other has to be a king
+				if (whitePieces.get(i).toString().equals("N")) {
+					knightNumber++;
+				}
+			}
+			if (knightNumber==2) {
+				return true;
+			}
+		}
+		else if (whitePieces.size()==1 && blackPieces.size()==2) {
+			int knightNumber = 0;
+			for (int i = 0; i<blackPieces.size()-1; i++) {
+				//Other has to be a king
+				if (blackPieces.get(i).toString().equals("n")) {
+					knightNumber++;
+				}
+			}
+			if (knightNumber==2) {
+				return true;
+			}
+		}
+		//K & BB v K
+		else if (whitePieces.size()==2 && blackPieces.size()==1) {
+			int bishopNumber = 0;
+			for (int i = 0; i<whitePieces.size()-1; i++) {
+				//Other has to be a king
+				if (whitePieces.get(i).toString().equals("B")) {
+					bishopNumber++;
+				}
+			}
+			if (bishopNumber==2) {
+				return true;
+			}
+		}
+		else if (whitePieces.size()==1 && blackPieces.size()==2) {
+			int bishopNumber = 0;
+			for (int i = 0; i<blackPieces.size()-1; i++) {
+				//Other has to be a king
+				if (blackPieces.get(i).toString().equals("b")) {
+					bishopNumber++;
+				}
+			}
+			if (bishopNumber==2) {
+				return true;
+			}
+		}
 		return false;
 	}
 	public static boolean hasKing(Player player) {
