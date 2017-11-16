@@ -23,41 +23,54 @@ public class Player {
 //		System.out.println(color);
 		boolean isChoosing = true;
 		boolean hasAgreed = false;
+		boolean isMoving = true;
 		while(isChoosing) {
 			//Sees if player agrees to a draw
 			while (!hasAgreed) {
-				System.out.println("Would you like to agree to a draw?");
+				System.out.print("Would you like to agree to a draw, ");
+				if (color == 0) {
+					System.out.println("white?");
+				}
+				else {
+					System.out.println("black");
+				}
 				if (input.nextLine().equalsIgnoreCase("yes")) {
-					Main.drawAgreement += 0; 
+					Main.drawAgreement += 1; 
 					hasAgreed = true;
+					isMoving = false;
+					isChoosing = false;
+					isMoving = false;
+					break;
 				}
 				else if (input.nextLine().equalsIgnoreCase("no")) {
 					Main.drawAgreement = 0;
 					hasAgreed = true;
 				}
 			}
-			System.out.print("Where is the piece you would like to move, ");
-			if (color == 0) {
-				System.out.println("white?");
-			}
-			else {
-				System.out.println("black?");
-			}
-			int x = getX();
-			int y = getY();
-			int moveX = moveX();
-			int moveY = moveY();
-//			Main.board[moveX][moveY] = Main.board[x][y];
-//			Main.board[x][y] = Main.blank;
-			if(tempBoard[x][y].checkMove(x, y, moveX, moveY, tempBoard)) {
-				if (isChecked()) {
-					break;
+			if (isMoving) {
+				System.out.print("Where is the piece you would like to move, ");
+				if (color == 0) {
+					System.out.println("white?");
 				}
 				else {
-					//If they did not put themselves in check, move
-					Main.board[x][y].checkMove(x, y, moveX, moveY, Main.board);
-					isChoosing = false;
-					break;
+					System.out.println("black?");
+				}
+				int x = getX();
+				int y = getY();
+				int moveX = moveX();
+				int moveY = moveY();
+	//			Main.board[moveX][moveY] = Main.board[x][y];
+	//			Main.board[x][y] = Main.blank;
+				if(tempBoard[x][y].checkMove(x, y, moveX, moveY, tempBoard)) {
+					if (isChecked()) {
+						break;
+					}
+					else {
+						//If they did not put themselves in check, move
+						Main.board[x][y].checkMove(x, y, moveX, moveY, Main.board);
+						isChoosing = false;
+						break;
+					}
 				}
 			}
 		}
