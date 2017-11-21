@@ -1,7 +1,11 @@
 package board;
 import java.util.Scanner;
 
+import pieces.Bishop;
+import pieces.Knight;
 import pieces.Piece;
+import pieces.Queen;
+import pieces.Rook;
 
 public class Player {
 	Scanner input;
@@ -72,10 +76,51 @@ public class Player {
 					else {
 						//If they did not put themselves in check, move
 						Main.board[x][y].checkMove(x, y, moveX, moveY, Main.board);
+						String pawnString;
+						if (color == 0) {
+							pawnString = "P";
+						}
+						else {
+							pawnString = "p";
+						}
+						if (Main.board[moveX][moveY].toString().equals(pawnString)) {
+							promote(moveX,moveY);
+						}
 						isChoosing = false;
 						break;
 					}
 				}
+			}
+		}
+	}
+	public void promote(int pawnX, int pawnY) {
+		boolean isPromoting = true;
+		System.out.println("What would you like to promote your pawn to? Q for queen, N for Knight, R for Rook, and B for Bishop.");
+		while (isPromoting) {
+			String promotionPiece = input.nextLine();
+			if (promotionPiece.equals("Q")) {
+				Queen queen = new Queen(color);
+				Main.board[pawnX][pawnY] = queen;
+				isPromoting = false;
+				break;
+			}
+			else if (promotionPiece.equals("N")) {
+				Knight knight = new Knight(color);
+				Main.board[pawnX][pawnY] = knight;
+				isPromoting = false;
+				break;
+			}
+			else if (promotionPiece.equals("R")) {
+				Rook rook = new Rook(color);
+				Main.board[pawnX][pawnY] = rook;
+				isPromoting = false;
+				break;
+			}
+			else if (promotionPiece.equals("B")) {
+				Bishop bishop = new Bishop(color);
+				Main.board[pawnX][pawnY] = bishop;
+				isPromoting = false;
+				break;
 			}
 		}
 	}
