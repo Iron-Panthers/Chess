@@ -74,10 +74,66 @@ public class Bishop extends Piece{
 		return type.toString();
 		// TODO Auto-generated method stub
 	}
-	public int getMaxDistance(int x, int y) {
+	public int getMaxDistancePositive(int x, int y) {
+		//This is only maxDistance for positive
 		int maxDistance;
 		int maxX = (Constants.BOARD_LENGTH-1)-x;
 		int maxY = (Constants.BOARD_HEIGHT-1)-y;
+		if (maxX>maxY) {
+			maxDistance = maxY;
+			return maxDistance;
+		}
+		else if (maxY>maxX) {
+			maxDistance = maxX;
+			return maxDistance;
+		}
+		else { //If they are the same
+			maxDistance = maxX;
+			return maxDistance;
+		}
+	}
+	public int getMaxDistanceNegative(int x, int y) {
+		//This is only maxDistance for positive
+		int maxDistance;
+		//If x is 7 and y is 7, maxDistanceNegative is -7
+		int maxX = 0-x;
+		int maxY = 0-y;
+		if (maxX<maxY) {
+			maxDistance = maxY;
+			return maxDistance;
+		}
+		else if (maxY<maxX) {
+			maxDistance = maxX;
+			return maxDistance;
+		}
+		else { //If they are the same
+			maxDistance = maxX;
+			return maxDistance;
+		}
+	}
+	public int getMaxDistanceUpLeft(int x, int y) {
+		//Only for up and to the left
+		int maxDistance;
+		int maxX = Math.abs(0-x);
+		int maxY = Math.abs((Constants.BOARD_HEIGHT-1)-y);
+		if (maxX>maxY) {
+			maxDistance = maxY;
+			return maxDistance;
+		}
+		else if (maxY>maxX) {
+			maxDistance = maxX;
+			return maxDistance;
+		}
+		else { //If they are the same
+			maxDistance = maxX;
+			return maxDistance;
+		}
+	}
+	public int getMaxDistanceDownRight(int x, int y) {
+		//Only for down and to the right
+		int maxDistance;
+		int maxY = Math.abs(0-y);
+		int maxX = Math.abs((Constants.BOARD_HEIGHT-1)-x);
 		if (maxX>maxY) {
 			maxDistance = maxY;
 			return maxDistance;
@@ -95,9 +151,10 @@ public class Bishop extends Piece{
 	public ArrayList<String> legalMoves(int x, int y) {
 		ArrayList<String> legalMoves = new ArrayList<String>();
 		//Sees the shortest distance to move, picks that
-		int maxDistance = getMaxDistance(x,y);
+		int maxDistancePositive = getMaxDistancePositive(x,y);
+		int maxDistanceNegative = getMaxDistanceNegative(x,y);
 		//Up and to the right
-		for (int i = 0; i<=maxDistance; i++) {
+		for (int i = 0; i<=maxDistancePositive; i++) {
 			//Sees if this move is in the board and is not moving on its own color
 			if (isInRange(x+i,y+i)) {
 				//If blank
@@ -115,7 +172,8 @@ public class Bishop extends Piece{
 			}
 		}
 		//Up and to the left 
-		for (int i = 0; i<=maxDistance; i++) {
+		int maxDistanceUpLeft = getMaxDistanceUpLeft(x,y);
+		for (int i = 0; i<=maxDistanceUpLeft; i++) { //Will not work
 			//Sees if this move is in the board and is not moving on its own color
 			if (isInRange(x-i,y+i)) {
 				//If blank
@@ -133,7 +191,8 @@ public class Bishop extends Piece{
 			}
 		}
 		//Down and to the right
-		for (int i = 0; i<=maxDistance; i++) {
+		int maxDistanceDownRight = getMaxDistanceDownRight(x,y);
+		for (int i = 0; i<=maxDistanceDownRight; i++) { //Will not work b/c one is negative
 			//Sees if this move is in the board and is not moving on its own color
 			if (isInRange(x+i,y-i)) {
 				//If blank
@@ -151,7 +210,7 @@ public class Bishop extends Piece{
 			}
 		}
 		//Down and to the left
-		for (int i = 0; i<=maxDistance; i++) {
+		for (int i = 0; i<=maxDistanceNegative; i++) {
 			//Sees if this move is in the board and is not moving on its own color
 			if (isInRange(x-i,y-i)) {
 				//If blank

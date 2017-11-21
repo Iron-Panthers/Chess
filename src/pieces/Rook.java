@@ -97,7 +97,7 @@ public class Rook extends Piece{
 			}
 		}
 		//Horizontal to the left
-		for (int i = 0; i>=-(Constants.BOARD_HEIGHT-1)-x; i--) {
+		for (int i = 0; i>=-(Constants.BOARD_HEIGHT-1)+x; i--) {
 			if (isInRange(x+i,y)) {
 				//Blank
 				if (isBlank(x+i,y)) {
@@ -130,7 +130,7 @@ public class Rook extends Piece{
 			}
 		}
 		//Vertical down
-		for (int i = 0; i>=-(Constants.BOARD_HEIGHT-1)-y; i--) {
+		for (int i = 0; i>=-(Constants.BOARD_HEIGHT-1)+y; i--) {
 			if (isInRange(x,y+i)) {
 				//If blank
 				if (isBlank(x,y+i)) {
