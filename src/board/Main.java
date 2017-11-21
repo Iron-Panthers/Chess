@@ -310,7 +310,13 @@ public class Main {
 		return false;
 	}
 	public static void gameOver(Player player) {
-		System.out.println("You lose, "+player);
+		System.out.print("You lose, ");
+		if (player.color == 0) {
+			System.out.println("white.");
+		}
+		else {
+			System.out.println("black.");
+		}
 	}
 	public static boolean checkForCheck() {
 		return nextPlayer.isChecked();

@@ -1,5 +1,4 @@
 package board;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import pieces.Piece;
@@ -7,7 +6,7 @@ import pieces.Piece;
 public class Player {
 	Scanner input;
 	public int color;
-	public char[] pInputArray;
+	public char[] pInputArray;	
 	public Piece[][] tempBoard;
 	
 	public Player(int color) {
@@ -34,7 +33,8 @@ public class Player {
 				else {
 					System.out.println("black");
 				}
-				if (input.nextLine().equalsIgnoreCase("yes")) {
+				String drawChoice = input.nextLine();
+				if (drawChoice.equalsIgnoreCase("yes")) {
 					Main.drawAgreement += 1; 
 					hasAgreed = true;
 					isMoving = false;
@@ -42,9 +42,13 @@ public class Player {
 					isMoving = false;
 					break;
 				}
-				else if (input.nextLine().equalsIgnoreCase("no")) {
+				else if (drawChoice.equalsIgnoreCase("no")) {
 					Main.drawAgreement = 0;
 					hasAgreed = true;
+					break;
+				}
+				else {
+					System.out.println("Invalid Choice");
 				}
 			}
 			if (isMoving) {
