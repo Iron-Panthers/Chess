@@ -11,8 +11,10 @@ public class King extends Piece{
 	public PieceType type;
 	public Player owner;
 	public Piece[][] board;
+	public boolean hasMoved;
 	public King(int color) {
 		this.color = color;
+		hasMoved = false;
 		if (color == 0) {
 			type = PieceType.K;
 		}
@@ -33,6 +35,135 @@ public class King extends Piece{
 			}
 		}
 		return false;
+	}
+	public boolean isRowEmptyQueen(int testRow, Piece[][] board) {
+		for (int i = 1; i<Constants.KING_POSITION; i++) {
+			//If not blank, the row is not empty
+			if (!board[i][testRow].toString().equals("X")) {
+				return false;
+			}
+		}
+		return true;
+	}
+	public boolean isRowEmptyKing(int testRow, Piece[][] board) {
+		for (int i = Constants.KING_POSITION; i<Constants.BOARD_LENGTH-2; i++) {
+			//If not blank, the row is not empty
+			if (!board[i][testRow].toString().equals("X")) {
+				return false;
+			}
+		}
+		return true;
+	}
+	public boolean canCastleKingside(int x, int y, int moveX, int moveY, Piece[][] board) {
+		this.board = board;
+		if (!hasMoved) { //Sees if the spaces are empty
+			int testRow;
+			if (toString().equals("K")) {
+				testRow = 0;
+				color = 0;
+			}
+			else {
+				testRow = 7;
+				color = 1;
+			}
+			//Kingside
+			//White
+			if (color == 0) {
+				//If rook is in its natural position
+				Piece testRook = board[Constants.ROOK_POSITION][testRow];
+				if (testRook.toString().equals("R")){
+					if (!testRook.hasMoved) {
+						return isRowEmptyKing(testRow, board);
+					}
+				}
+			}
+		}
+		
+		return false;
+	}
+	public boolean canCastleQueenside(int x, int y, int moveX, int moveY, Piece[][] board) {
+		this.board = board;
+		if (!hasMoved) { //Sees if the spaces are empty
+			int testRow;
+			if (toString().equals("K")) {
+				testRow = 0;
+				color = 0;
+			}
+			else {
+				testRow = 7;
+				color = 1;
+			}
+			//Kingside
+			//White
+			if (color == 0) {
+				//If rook is in its natural position
+				Piece testRook = board[Constants.ROOK_POSITION][testRow];
+				if (testRook.toString().equals("R")){
+					if (!testRook.hasMoved) {
+						return isRowEmptyQueen(testRow, board);
+					}
+				}
+			}
+		}
+		
+		return false;
+	}
+	public boolean castle(int x, int y, int moveX, int moveY, Piece[][] board) {
+		this.board = board;
+		if (canCastleQueenside(x,y,moveX,moveY,board)) {
+			//White Castle
+			if (color==0) {
+				//Moves king
+				board[moveX][moveY]=board[x][y];
+				board[x][y]=Main.blank;
+				board[moveX][moveY].hasMoved = true;
+				//Moves rook
+				board[moveX+1][moveY]=board[Constants.ROOK_POSITION][0];
+				board[Constants.ROOK_POSITION][0]=Main.blank;
+				board[moveX+1][moveY].hasMoved = true;
+				return true;
+			}
+			//Black Castle
+			else {
+				//Moves king
+				board[moveX][moveY]=board[x][y];
+				board[x][y]=Main.blank;
+				board[moveX][moveY].hasMoved = true;
+				//Moves rook
+				board[moveX+1][moveY]=board[Constants.ROOK_POSITION][Constants.BOARD_HEIGHT-1];
+				board[Constants.ROOK_POSITION][Constants.BOARD_HEIGHT-1]=Main.blank;
+				board[moveX+1][moveY].hasMoved = true;
+				return true;
+			}
+		}
+		else if (canCastleKingside(x,y,moveX,moveY,board)) {
+			//White Castle
+			if (color==0) {
+				//Moves king
+				board[moveX][moveY]=board[x][y];
+				board[x][y]=Main.blank;
+				board[moveX][moveY].hasMoved = true;
+				//Moves rook
+				board[moveX-1][moveY]=board[Constants.ROOK_POSITION][0];
+				board[Constants.ROOK_POSITION][0]=Main.blank;
+				board[moveX-1][moveY].hasMoved = true;
+				return true;
+			}
+			//Black Castle
+			else {
+				//Moves king
+				board[moveX][moveY]=board[x][y];
+				board[x][y]=Main.blank;
+				board[moveX][moveY].hasMoved = true;
+				//Moves rook
+				board[moveX-1][moveY]=board[Constants.ROOK_POSITION][Constants.BOARD_HEIGHT-1];
+				board[Constants.ROOK_POSITION][Constants.BOARD_HEIGHT-1]=Main.blank;
+				board[moveX-1][moveY].hasMoved = true;
+				return true;
+			}
+		}
+		return false;
+		
 	}
 	public boolean checkMove(int x, int y, int moveX, int moveY, Piece[][] board) {
 		this.board = board;
@@ -60,7 +191,12 @@ public class King extends Piece{
 			//Moves knight to new space, replaces empty space with a blank
 			board[moveX][moveY] = board[x][y]; 
 			board[x][y] = Main.blank;
+			hasMoved = true;
 			return true;
+		}
+		else if (moveX+2==x){ //Checks for kingside castle
+			castle(x,y,moveX,moveY,board);
+			
 		}
 		return false;
 	}

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public abstract class Piece {
 	public static PieceType type;
 	public static int color;
+	public boolean hasMoved;
 //	public Piece(int color){
 //		this.color = color;
 //	}

@@ -11,8 +11,10 @@ public class Rook extends Piece{
 	public Player owner;
 	public int color;
 	public Piece[][] board;
+	public boolean hasMoved;
 	public Rook(int color) {
 		this.color = color;
+		hasMoved = false;
 		if (color == 0) {
 			type = PieceType.R;
 		}
@@ -34,6 +36,12 @@ public class Rook extends Piece{
 		}
 		return false;
 	}
+//	public void forceMove(int x, int y, int moveX, int moveY, Piece[][] board) {
+//		this.board = board;
+//		board[moveX][moveY] = board[x][y]; 
+//		board[x][y] = Main.blank;
+//		hasMoved = true;
+//	}
 	public boolean checkMove(int x, int y, int moveX, int moveY, Piece[][] board) {
 		this.board = board;
 //		System.out.println();
