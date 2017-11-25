@@ -1,13 +1,17 @@
 package board;
 import java.util.Scanner;
 
-import exiled.Piece;
-import pieces.PieceType;
+import pieces.Bishop;
+import pieces.Knight;
+import pieces.Piece;
+import pieces.Queen;
+import pieces.Rook;
 
 public class Player {
 	Scanner input;
 	public int color;
-	public char[] pInputArray;
+	public char[] pInputArray;	
+	public Piece[][] tempBoard;
 	
 	public Player(int color) {
 		this.color = color;
@@ -17,53 +21,192 @@ public class Player {
 	public void turn() {
 		//Asks for move
 		Main.display();
+		color = Main.currentColor;
+		tempBoard = Main.board;
+//		System.out.println(color);
 		boolean isChoosing = true;
+		boolean hasAgreed = false;
+		boolean isMoving = true;
 		while(isChoosing) {
-			System.out.print("Which piece would you like to move, ");
-			if (color == 0) {
-				System.out.println("white?");
+			//Sees if player agrees to a draw
+			while (!hasAgreed) {
+				System.out.print("Would you like to agree to a draw, ");
+				if (color == 0) {
+					System.out.println("white?");
+				}
+				else {
+					System.out.println("black");
+				}
+				String drawChoice = input.nextLine();
+				if (drawChoice.equalsIgnoreCase("yes")) {
+					Main.drawAgreement += 1; 
+					hasAgreed = true;
+					isMoving = false;
+					isChoosing = false;
+					isMoving = false;
+					break;
+				}
+				else if (drawChoice.equalsIgnoreCase("no")) {
+					Main.drawAgreement = 0;
+					hasAgreed = true;
+					break;
+				}
+				else {
+					System.out.println("Invalid Choice");
+				}
 			}
-			else {
-				System.out.println("black?");
+			if (isMoving) {
+				System.out.print("Where is the piece you would like to move, ");
+				if (color == 0) {
+					System.out.println("white?");
+				}
+				else {
+					System.out.println("black?");
+				}
+				int x = getX();
+				int y = getY();
+				int moveX = moveX();
+				int moveY = moveY();
+	//			Main.board[moveX][moveY] = Main.board[x][y];
+	//			Main.board[x][y] = Main.blank;
+				if(tempBoard[x][y].checkMove(x, y, moveX, moveY, tempBoard)) {
+					if (isChecked()) {
+						break;
+					}
+					else {
+						//If they did not put themselves in check, move
+						Main.board[x][y].checkMove(x, y, moveX, moveY, Main.board);
+						String pawnString;
+						if (color == 0) {
+							pawnString = "P";
+						}
+						else {
+							pawnString = "p";
+						}
+						if (Main.board[moveX][moveY].toString().equals(pawnString)) {
+							promote(moveX,moveY);
+						}
+						isChoosing = false;
+						break;
+					}
+				}
 			}
-			String pInput = input.nextLine();
-			switch(pInput) {
-				case "N":
-					int x = getX();
-					int y = getY();
-					int moveX = moveX();
-					int moveY = moveY();
-					//Moves a knight with those things
-					//Main.board[][]knight();
-					isChoosing = false;
-					break;
-				case "R":
-					rook();
-					isChoosing = false;
-					break;
-				case "B":
-					bishop();
-					isChoosing = false;
-					break;
-				case "Q":
-					queen();
-					isChoosing = false;
-					break;
-				case "K":
-					king();
-					isChoosing = false;
-					break;
-				case "P":
-					pawn();
-					isChoosing = false;
-				default:
-					System.out.println("Invalid Letter for piece");
-					break;
+		}
+	}
+	public void promote(int pawnX, int pawnY) {
+		boolean isPromoting = true;
+		System.out.println("What would you like to promote your pawn to? Q for queen, N for Knight, R for Rook, and B for Bishop.");
+		while (isPromoting) {
+			String promotionPiece = input.nextLine();
+			if (promotionPiece.equals("Q")) {
+				Queen queen = new Queen(color);
+				Main.board[pawnX][pawnY] = queen;
+				isPromoting = false;
+				break;
+			}
+			else if (promotionPiece.equals("N")) {
+				Knight knight = new Knight(color);
+				Main.board[pawnX][pawnY] = knight;
+				isPromoting = false;
+				break;
+			}
+			else if (promotionPiece.equals("R")) {
+				Rook rook = new Rook(color);
+				Main.board[pawnX][pawnY] = rook;
+				isPromoting = false;
+				break;
+			}
+			else if (promotionPiece.equals("B")) {
+				Bishop bishop = new Bishop(color);
+				Main.board[pawnX][pawnY] = bishop;
+				isPromoting = false;
+				break;
 			}
 		}
 	}
 	public void checkTurn() {
 		System.out.println("You are in check. You need to get out of check");
+		turn();
+	}
+	public int getKingX() {
+		for (int i = 0; i<Main.board.length; i++) {
+			for (int j = 0; j<Main.board.length; j++) {
+				String type = Main.board[j][i].toString();
+				int thisColor = Main.currentPlayer.color;
+				if (Main.board[j][i].color == 0) {
+					if (type.equals("K"));
+					return j;
+				}
+				else {
+					if (type.equals("k"));
+					return j;
+				}
+			}
+			System.out.println();
+		}
+		return (Integer) null;
+	}
+	public int getKingY() {
+		for (int i = 0; i<Main.board.length; i++) {
+			for (int j = 0; j<Main.board.length; j++) {
+				String type = Main.board[j][i].toString();
+				int thisColor = Main.currentPlayer.color;
+				if (Main.board[j][i].color == 0) {
+					if (type.equals("K"));
+					return i;
+				}
+				else {
+					if (type.equals("k"));
+					return i;
+				}
+			}
+			System.out.println();
+		}
+		return (Integer) null;
+	}
+	public boolean isChecked() {
+		int x = getKingX();
+		int y = getKingY();
+		return allTarget(x,y);
+	}
+	public int getPieceColor(int x, int y, Piece[][] board) {
+		//Lower case, it is black
+		if (board[x][y].toString().equals(board[x][y].toString().toLowerCase())) {
+			return 1;
+		}
+		//X, blank
+		else if (board[x][y].toString().equals("X")){
+			return 2;
+		}
+		//Upper case, it is white
+		else {
+			return 0;
+		}
+	}
+	public boolean allTarget(int x, int y) {
+		Piece tempBoard[][] = Main.board;
+		for (int i = 0; i<Main.board.length; i++) {
+			for (int j = 0; j<Main.board.length; j++) {
+				if (getPieceColor(j,i,tempBoard) != color) {
+					tempBoard[j][i].checkMove(j, i, x, y,tempBoard); //Moves all pieces to king
+				}
+			}
+		}
+		if (allTargetCheck(tempBoard)) {
+			return true;
+		}
+		return false;
+	}
+	public boolean allTargetCheck(Piece tempBoard[][]) {
+		//Checks if boards are different
+		for (int i = 0; i<Main.board.length; i++) {
+			for (int j = 0; j<Main.board.length; j++) {
+				if (!(Main.board[j][i].toString().equals(tempBoard[j][i].toString()))) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 	public int moveY() {
 		int moveY;
@@ -141,92 +284,7 @@ public class Player {
 			}
 		}	
 		return (Integer) null;
-		//Moves piece to square specified
-		
-	}
-	public void knight() {
-		int x = getX();
-		int y = getY();
-		if (Main.board[x][y].type.equals(PieceType.N)) { //It is a knight
-			int nextX = moveX();
-			int nextY = moveY();
-			if (Main.board[x][y].color==color) { //Checks if player owns the piece
-				if (Math.abs(x-nextX)==2) { //Checks if change in x is 2
-					if (Math.abs(y-nextY)==1) {
-						//Succeeds
-						if (!Main.board[nextX][nextY].type.equals(PieceType.X)) { //If not blank
-							if (Main.board[nextX][nextY].color == color) { //Colors match, same team, cannot take
-								System.out.println("You cannot move a piece on top of another one of your pieces");
-							}
-							else {
-								//Finds a blank to set the empty spot to
-								for (int i = 0; i<8; i++) {
-									for (int j = 0; j<8; j++) {
-										//If the piece found is blank, set empty space to blank
-										if (Main.board[j][i].type.equals(PieceType.X)) {
-											Main.board[nextX][nextY]=Main.board[x][y];
-											Main.board[x][y] = Main.board[j][i];
-											break;
-										}
-									}
-								}
-							}
-						}
-						else {
-							//Replaces blank with knight, replaces knight with blank
-							Piece blank = Main.board[nextX][nextY];
-							Main.board[nextX][nextY]=Main.board[x][y];
-							Main.board[x][y] = blank;
-						}
-					}
-					else {
-						System.out.println("Invalid knight move");
-						turn();
-					}
-				}
-				else if (Math.abs(x-nextX)==1) { //Checks if change in y is 2
-					if (Math.abs(y-nextY)==2) {
-						//Succeeds
-						if (!Main.board[nextX][nextY].type.equals(PieceType.X)) { //If not blank
-							if (Main.board[nextX][nextY].color == color) { //Colors match, same team, cannot take
-								System.out.println("You cannot move a piece on top of another one of your pieces");
-							}
-							else {
-								//Finds a blank to set the empty spot to
-								for (int i = 0; i<8; i++) {
-									for (int j = 0; j<8; j++) {
-										//If the piece found is blank, set empty space to blank
-										if (Main.board[j][i].type.equals(PieceType.X)) {
-											Main.board[nextX][nextY]=Main.board[x][y];
-											Main.board[x][y] = Main.board[j][i];
-											break;
-										}
-									}
-								}
-							}
-						}
-						else {
-							//Replaces blank with knight, replaces knight with blank
-							Piece blank = Main.board[nextX][nextY];
-							Main.board[nextX][nextY]=Main.board[x][y];
-							Main.board[x][y] = blank;
-						}
-					}
-					else {
-						System.out.println("Invalid knight move");
-						turn();
-					}
-				}
-				else {
-					System.out.println("Invalid knight move");
-					turn();
-				}
-			}
-			else {
-				System.out.println("That is not your piece");
-				turn();
-			}
-		}
+		//Moves piece to square specified	
 	}
 	public int getY() {
 		int y;
@@ -305,35 +363,5 @@ public class Player {
 			}
 		}
 		return (Integer) null;
-	}
-	public void pawn() {
-		int x = getX();
-		int y = getY();
-		int nextX = moveX();
-		int nextY = moveY();
-	}
-	public void rook() {
-		int x = getX();
-		int y = getY();
-		int nextX = moveX();
-		int nextY = moveY();
-	}
-	public void bishop() {
-		int x = getX();
-		int y = getY();
-		int nextX = moveX();
-		int nextY = moveY();
-	}
-	public void queen() {
-		int x = getX();
-		int y = getY();
-		int nextX = moveX();
-		int nextY = moveY();
-	}
-	public void king() {
-		int x = getX();
-		int y = getY();
-		int nextX = moveX();
-		int nextY = moveY();
 	}
 }
