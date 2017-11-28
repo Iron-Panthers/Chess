@@ -76,16 +76,16 @@ public class Player {
 					else {
 						//If they did not put themselves in check, move
 						Main.board[x][y].checkMove(x, y, moveX, moveY, Main.board);
-						String pawnString;
-						if (color == 0) {
-							pawnString = "P";
-						}
-						else {
-							pawnString = "p";
-						}
-						if (Main.board[moveX][moveY].toString().equals(pawnString)) {
-							promote(moveX,moveY);
-						}
+//						String pawnString;
+//						if (color == 0) {
+//							pawnString = "P";
+//						}
+//						else {
+//							pawnString = "p";
+//						}
+//						if (Main.board[moveX][moveY].toString().equals(pawnString)) {
+//							promote(moveX,moveY);
+//						}
 						isChoosing = false;
 						break;
 					}
