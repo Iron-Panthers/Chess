@@ -75,17 +75,28 @@ public class Player {
 					}
 					else {
 						//If they did not put themselves in check, move
-						Main.board[x][y].checkMove(x, y, moveX, moveY, Main.board);
-//						String pawnString;
-//						if (color == 0) {
-//							pawnString = "P";
-//						}
-//						else {
-//							pawnString = "p";
-//						}
-//						if (Main.board[moveX][moveY].toString().equals(pawnString)) {
-//							promote(moveX,moveY);
-//						}
+						if(Main.board[x][y].checkMove(x, y, moveX, moveY, Main.board)) {
+							String pawnString;
+							if (color == 0) {
+								pawnString = "P";
+								if (moveY==(Constants.BOARD_HEIGHT-1)) {
+									//At top
+									if (Main.board[moveX][moveY].toString().equals(pawnString)) {
+										promote(moveX,moveY);
+									}
+								}
+								
+							}
+							else {
+								pawnString = "p";
+								if (moveY==(Constants.BOARD_HEIGHT-Constants.BOARD_HEIGHT)) {
+									//At top
+									if (Main.board[moveX][moveY].toString().equals(pawnString)) {
+										promote(moveX,moveY);
+									}
+								}
+							}
+						}
 						isChoosing = false;
 						break;
 					}
