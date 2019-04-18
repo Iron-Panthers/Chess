@@ -22,7 +22,7 @@ public class Player {
 		//Asks for move
 		Main.display();
 		color = Main.currentColor;
-		tempBoard = Main.board;
+		tempBoard = Main.board.clone();
 //		System.out.println(color);
 		boolean isChoosing = true;
 		boolean hasAgreed = false;
@@ -68,13 +68,14 @@ public class Player {
 				int moveX = moveX();
 				int moveY = moveY();
 	//			Main.board[moveX][moveY] = Main.board[x][y];
-				if(tempBoard[x][y].checkMove(x, y, moveX, moveY, tempBoard)) {
+				if(tempBoard[x][y].checkMove(x, y, moveX, moveY, tempBoard, true)) {
+					System.out.println("Is in check == " + isChecked());
 					if (isChecked()) {
 						break;
 					}
 					else {
 						//If they did not put themselves in check, move
-						if(Main.board[x][y].checkMove(x, y, moveX, moveY, Main.board)) {
+						if(Main.board[x][y].checkMove(x, y, moveX, moveY, Main.board, false)) {
 							// Promote check
 							String pawnString;
 							if (color == 0) {
@@ -200,7 +201,7 @@ public class Player {
 			for (int j = 0; j<Main.board.length; j++) {
 				if (getPieceColor(j,i,tempBoard) != color) {
 					//Sees if it is legal to move all pieces to king
-					if (tempBoard[j][i].checkMove(j, i, x, y,tempBoard)) {
+					if (tempBoard[j][i].checkMove(j, i, x, y,tempBoard, true)) {
 						return true;
 					}
 				}

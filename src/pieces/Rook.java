@@ -36,16 +36,8 @@ public class Rook extends Piece{
 		}
 		return false;
 	}
-//	public void forceMove(int x, int y, int moveX, int moveY, Piece[][] board) {
-//		this.board = board;
-//		board[moveX][moveY] = board[x][y]; 
-//		board[x][y] = Main.blank;
-//		hasMoved = true;
-//	}
-	public boolean checkMove(int x, int y, int moveX, int moveY, Piece[][] board) {
+	public boolean checkMove(int x, int y, int moveX, int moveY, Piece[][] board, boolean isQuiet) {
 		this.board = board;
-//		System.out.println();
-//		System.out.println(color);
 		if (isInRange(moveX,moveY)) {
 			if (board[x][y].toString().equals(toString())) {
 				ArrayList<String> legalMoves = legalMoves(x,y);
@@ -53,6 +45,9 @@ public class Rook extends Piece{
 					return true;
 				}
 				else {
+					if (isQuiet) {
+						return false;
+					}
 					System.out.println("Invalid move");
 					return false;
 				}

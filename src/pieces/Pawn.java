@@ -34,10 +34,8 @@ public class Pawn extends Piece{
 		}
 		return false;
 	}
-	public boolean checkMove(int x, int y, int moveX, int moveY, Piece[][] board) {
+	public boolean checkMove(int x, int y, int moveX, int moveY, Piece[][] board, boolean isQuiet) {
 		this.board = board;
-//		System.out.println();
-//		System.out.println(color);
 		if (isInRange(moveX,moveY)) {
 			if (board[x][y].toString().equals(toString())) {
 				ArrayList<String> legalMoves = legalMoves(x,y);
@@ -45,6 +43,9 @@ public class Pawn extends Piece{
 					return true;
 				}
 				else {
+					if (isQuiet) {
+						return false;
+					}
 					System.out.println("Invalid move");
 					return false;
 				}

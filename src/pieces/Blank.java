@@ -25,7 +25,7 @@ public class Blank extends Piece{
 		return null;
 	}
 	@Override
-	public boolean checkMove(int x, int y, int moveX, int moveY, Piece[][] board) {
+	public boolean checkMove(int x, int y, int moveX, int moveY, Piece[][] board, boolean isQuiet) {
 		// TODO Auto-generated method stub
 		return false;
 	}
