@@ -68,7 +68,6 @@ public class Player {
 				int moveX = moveX();
 				int moveY = moveY();
 	//			Main.board[moveX][moveY] = Main.board[x][y];
-	//			Main.board[x][y] = Main.blank;
 				if(tempBoard[x][y].checkMove(x, y, moveX, moveY, tempBoard)) {
 					if (isChecked()) {
 						break;
@@ -76,6 +75,7 @@ public class Player {
 					else {
 						//If they did not put themselves in check, move
 						if(Main.board[x][y].checkMove(x, y, moveX, moveY, Main.board)) {
+							// Promote check
 							String pawnString;
 							if (color == 0) {
 								pawnString = "P";
@@ -195,25 +195,14 @@ public class Player {
 		}
 	}
 	public boolean allTarget(int x, int y) {
-		Piece tempBoard[][] = Main.board;
+		Piece tempBoard[][] = Main.board.clone();
 		for (int i = 0; i<Main.board.length; i++) {
 			for (int j = 0; j<Main.board.length; j++) {
 				if (getPieceColor(j,i,tempBoard) != color) {
-					tempBoard[j][i].checkMove(j, i, x, y,tempBoard); //Moves all pieces to king
-				}
-			}
-		}
-		if (allTargetCheck(tempBoard)) {
-			return true;
-		}
-		return false;
-	}
-	public boolean allTargetCheck(Piece tempBoard[][]) {
-		//Checks if boards are different
-		for (int i = 0; i<Main.board.length; i++) {
-			for (int j = 0; j<Main.board.length; j++) {
-				if (!(Main.board[j][i].toString().equals(tempBoard[j][i].toString()))) {
-					return true;
+					//Sees if it is legal to move all pieces to king
+					if (tempBoard[j][i].checkMove(j, i, x, y,tempBoard)) {
+						return true;
+					}
 				}
 			}
 		}
@@ -223,7 +212,7 @@ public class Player {
 		int moveY;
 		boolean isChoosing = true;
 		while(isChoosing) {
-			System.out.println("To which rank or row would you like to move the piece?");
+			System.out.println("To which rank or row would you like to move the piece? i.e. '2'");
 			String moveInput = input.nextLine();
 			switch (moveInput) {
 			case "1":
@@ -262,7 +251,7 @@ public class Player {
 		int moveX;
 		boolean isChoosing = true;
 		while (isChoosing) {
-			System.out.println("To which file or column would you like to move the piece?");
+			System.out.println("To which file or column would you like to move the piece? i.e. 'a'");
 			String moveInput = input.nextLine();
 			switch (moveInput) {
 				case "a":
@@ -301,7 +290,7 @@ public class Player {
 		int y;
 		boolean isChoosing = true;
 		while(isChoosing) {
-			System.out.println("Which rank or row is your piece in?");
+			System.out.println("Which rank or row is your piece in? i.e. '2'");
 			String file = input.nextLine();
 			switch(file) {
 				//Arrays start at zero, uses the 2d array made in main
@@ -340,7 +329,7 @@ public class Player {
 		int x;
 		boolean isChoosing = true;
 		while(isChoosing) {
-			System.out.println("Which file or column is your piece in?");
+			System.out.println("Which file or column is your piece in? i.e. 'a'");
 			String file = input.next();
 			switch(file) {
 				//letters for columns
